@@ -1,0 +1,167 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+
+	<Frame name="StoryTellerFrame" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true">
+
+		<Scripts>
+			<OnLoad>self:RegisterForDrag("LeftButton")</OnLoad>
+			<OnDragStart>self:StartMoving()</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
+			<OnEscapePressed>StoryTellerFrame.Escape()</OnEscapePressed>
+			<OnShow>StoryTellerFrame.HighlightCurrentLine()</OnShow>
+		</Scripts>
+
+		<Size x="320" y="160" />
+
+		<Anchors>
+			<Anchor point="CENTER" x="0" y="0" />
+		</Anchors>
+
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="StoryTellerFrameTitle" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-15"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+
+		<Frames>
+
+			<Button name="StoryTellerFrameClearButton" inherits="UIPanelButtonTemplate" level="OVERLAY">
+				<Size x="60" y="20" />
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="-10" y="-10" relativePoint="TOPRIGHT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
+						StoryTellerFrameText:SetFocus()
+						StoryTellerFrameText:HighlightText(0);
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="StoryTellerFrameCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOPRIGHT">
+						<Offset x="-7" y="-7" />
+					</Anchor>
+				</Anchors>
+			</Button>
+
+			<Button name="StoryTellerFramePrevButton" inherits="UIPanelButtonTemplate">
+				<Size x="50" y="20" />
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" x="10" y="10" relativePoint="BOTTOMLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						StoryTellerFrame.Prev()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="StoryTellerFrameReadButton" inherits="UIPanelButtonTemplate">
+				<Size x="200" y="20" />
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" x="60" y="10" relativePoint="BOTTOMLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						StoryTellerFrame.Read()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="StoryTellerFrameNextButton" inherits="UIPanelButtonTemplate">
+				<Size x="50" y="20" />
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" x="260" y="10" relativePoint="BOTTOMLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						StoryTellerFrame.Next()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<ScrollFrame name="StoryTellerFrameScrollFrame" inherits="UIPanelScrollFrameTemplate">
+				<Size x="268" y="90" />
+				<Anchors>
+					<Anchor point="TOPLEFT" x="15" y="-35" relativePoint="TOPLEFT" />
+				</Anchors>
+
+				<ScrollChild>
+					<EditBox name="StoryTellerFrameText" multiLine="true" autoFocus="false" countInvisibleLetters="false">
+						<Size x="268" y="90"/>
+
+						<Scripts>
+							<OnEditFocusGained>
+								StoryTellerFrame.HighlightCurrentLine()
+							</OnEditFocusGained>
+							<OnLoad>
+								ScrollingEdit_OnCursorChanged(self, 0, 0, 0, 0)
+							</OnLoad>
+							<OnTextChanged>
+								ScrollingEdit_OnTextChanged(self, self:GetParent())
+								if not(StoryTellerFrame.isUpdating) then
+									StoryTellerFrame.Load()
+									StoryTellerFrame.Refresh()
+								end
+							</OnTextChanged>
+							<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
+							<OnUpdate>
+								ScrollingEdit_OnUpdate(self, elapsed, self:GetParent())
+							</OnUpdate>
+							<OnEscapePressed>StoryTellerFrame.Escape()</OnEscapePressed>
+						</Scripts>
+
+						<FontString inherits="GameFontHighlightSmall"/>
+					</EditBox>
+				</ScrollChild>
+			</ScrollFrame>
+
+			<Frame name="StoryTellerFrameTextBackground">
+				<Size x="300" y="100" />
+				<Anchors>
+					<Anchor point="TOP" y="-30" relativePoint="TOP" />
+				</Anchors>
+				<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="16"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="5" right="5" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Scripts>
+					<OnLoad>
+						self:SetBackdropBorderColor(TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b);
+						self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+
+		</Frames>
+	</Frame>
+</Ui>
