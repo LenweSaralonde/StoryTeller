@@ -4,8 +4,8 @@ StoryTellerFrame.Init = function()
 	StoryTellerFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	StoryTellerFrame:SetScript("OnEvent", function(self, event, ...)
 		if event == "PLAYER_ENTERING_WORLD" then
+			StoryTellerFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 			StoryTeller.Init()
-
 			StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
 			StoryTellerFrameTitle:SetText(StoryTeller.Msg.TELL_A_STORY)
 			StoryTellerFrameClearButton:SetText(StoryTeller.Msg.CLEAR)
