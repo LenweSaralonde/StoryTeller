@@ -77,6 +77,9 @@ StoryTellerFrame.Load = function()
 			table.insert(StoryTeller.text, { lines[i], length, length + lineLength })
 			length = length + lineLength + 1
 		end
+		if StoryTellerFrame.IsCurrentLineEmpty() then
+			StoryTellerFrame.Next()
+		end
 	end
 
 	StoryTellerFrame.HighlightCurrentLine()
