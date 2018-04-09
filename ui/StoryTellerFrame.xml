@@ -121,10 +121,8 @@
 							</OnLoad>
 							<OnTextChanged>
 								ScrollingEdit_OnTextChanged(self, self:GetParent())
-								if not(StoryTellerFrame.isUpdating) then
-									StoryTellerFrame.Load()
-									StoryTellerFrame.Refresh()
-								end
+								StoryTellerFrame.Load()
+								StoryTellerFrame.Refresh()
 							</OnTextChanged>
 							<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 							<OnUpdate>

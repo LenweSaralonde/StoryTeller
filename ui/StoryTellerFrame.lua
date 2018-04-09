@@ -35,22 +35,19 @@ StoryTellerFrame.HighlightCurrentLine = function()
 		StoryTellerFrameText:HighlightText(line[2], line[3])
 
 		-- Adjust scrolling
+		local boxWidth = StoryTellerFrameText:GetWidth()
+		local _, fontHeight = StoryTellerFrame.GetTextLineSize('0', boxWidth)
 		local scrollRange = StoryTellerFrameScrollFrame:GetVerticalScrollRange()
 		local scrollHeight = StoryTellerFrameScrollFrame:GetHeight()
 		local textHeight = scrollRange + scrollHeight
-		local lineHeight = textHeight / lineCount
-		local visibleLines = scrollHeight / lineHeight
+		local lineY = line[4] * fontHeight
+		local lineHeight = line[5] * fontHeight
+		local visibleLines = scrollHeight / fontHeight
+		local scrollCenter = 1/3
 
-		local scrollTo
-		if StoryTeller.textCursor <= visibleLines / 2 then
-			scrollTo = 0
-		elseif StoryTeller.textCursor >= lineCount - visibleLines / 2 then
-			scrollTo = scrollRange
-		else
-			scrollTo = lineHeight * (StoryTeller.textCursor - visibleLines / 2)
-		end
+		local scrollTo = lineY - scrollHeight * scrollCenter + lineHeight / 2
+		StoryTellerFrameScrollFrame:SetVerticalScroll(min(scrollRange, max(0, min(lineY, scrollTo))))
 
-		StoryTellerFrameScrollFrame:SetVerticalScroll(scrollTo)
 		StoryTellerFrameText:ClearFocus()
 	elseif lineCount == 0 then
 		StoryTellerFrameText:HighlightText(0)
@@ -66,19 +63,38 @@ end
 StoryTellerFrame.Load = function()
 	local lines = {}
 	StoryTeller.text = {}
-	StoryTeller.textCursor = nil
+	StoryTeller.textCursor = 1
+
 	if StoryTellerFrameText:GetText() ~= StoryTeller.Msg.PASTE_TEXT then
 		lines = { strsplit("\n", string.gsub(StoryTellerFrameText:GetText(), "\r", "")) }
-		StoryTeller.textCursor = 1
+
 		local i
 		local length = 0
+		local y = 0
+		local boxWidth = StoryTellerFrameText:GetWidth()
+		local _, fontHeight = StoryTellerFrame.GetTextLineSize('0', boxWidth)
+		local lineIsSpaces = false
 		for i = 1, table.getn(lines) do
 			local lineLength = string.len(lines[i])
-			table.insert(StoryTeller.text, { lines[i], length, length + lineLength })
+			local lineWidth, lineHeight = StoryTellerFrame.GetTextLineSize(lines[i], boxWidth)
+			local wrapLines = floor(.5 + lineHeight / fontHeight)
+
+			if not(StoryTellerFrame.IsTextLineEmpty(lines[i])) then
+				table.insert(StoryTeller.text, { lines[i], length, length + lineLength, y, wrapLines })
+				lineIsSpaces = false
+			elseif strtrim(lines[i]) == "" then
+				if lineIsSpaces then
+					wrapLines = 0
+				else
+					wrapLines = 1
+				end
+				lineIsSpaces = true
+			else
+				lineIsSpaces = false
+			end
+
+			y = y + wrapLines
 			length = length + lineLength + 1
-		end
-		if StoryTellerFrame.IsCurrentLineEmpty() then
-			StoryTellerFrame.Next()
 		end
 	end
 
@@ -86,16 +102,29 @@ StoryTellerFrame.Load = function()
 	StoryTellerFrame.Refresh()
 end
 
---- Return true if the current line is blank or is a comment
+--- Return true if the provided text line is blank or is a comment
+-- @param text (string)
 -- @return (boolean)
-StoryTellerFrame.IsCurrentLineEmpty = function()
-	local lineCount = table.getn(StoryTeller.text)
-	if lineCount and StoryTeller.text[StoryTeller.textCursor] ~= nil then
-		local line = strtrim(StoryTeller.text[StoryTeller.textCursor][1])
-		return line == "" or string.find(line, "%#") == 1 or string.find(line, "%-%-") == 1 or string.find(line, "%/%/") == 1 or string.find(line, "REM%s") == 1
-	else
-		return false
+StoryTellerFrame.IsTextLineEmpty = function(text)
+	local line = strtrim(text)
+	return line == "" or string.find(line, "%#") == 1 or string.find(line, "%-%-") == 1 or string.find(line, "%/%/") == 1 or string.find(line, "REM%s") == 1
+end
+
+--- Returns the width and height in pixels of the text line
+-- @param text (string)
+-- @param maxWidth (number)
+-- @return (number), (number)
+StoryTellerFrame.GetTextLineSize = function(text, maxWidth)
+	-- Create a clone of the FontString for measurements
+	if StoryTellerFrame.fsClone == nil then
+		local fs = StoryTellerFrameText:GetRegions()
+		StoryTellerFrame.fsClone = StoryTellerFrameText:CreateFontString()
+		StoryTellerFrame.fsClone:SetFontObject(fs:GetFontObject())
 	end
+	-- Measure dimensions
+	StoryTellerFrame.fsClone:SetWidth(maxWidth)
+	StoryTellerFrame.fsClone:SetText(text)
+	return StoryTellerFrame.fsClone:GetStringWidth(), StoryTellerFrame.fsClone:GetStringHeight()
 end
 
 --- Go to previous text line
@@ -104,10 +133,6 @@ StoryTellerFrame.Prev = function()
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount and StoryTeller.textCursor > 1 then
 		StoryTeller.textCursor = StoryTeller.textCursor -  1
-		-- Skip blank line
-		if StoryTellerFrame.IsCurrentLineEmpty() then
-			return StoryTellerFrame.Prev()
-		end
 		StoryTellerFrame.HighlightCurrentLine()
 		StoryTellerFrame.Refresh()
 	end
@@ -119,10 +144,6 @@ StoryTellerFrame.Next = function()
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount and StoryTeller.textCursor <= lineCount then
 		StoryTeller.textCursor = StoryTeller.textCursor + 1
-		-- Skip blank line
-		if StoryTellerFrame.IsCurrentLineEmpty() then
-			return StoryTellerFrame.Next()
-		end
 		StoryTellerFrame.HighlightCurrentLine()
 		StoryTellerFrame.Refresh()
 	end
@@ -133,9 +154,7 @@ end
 StoryTellerFrame.Read = function()
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount and StoryTeller.textCursor <= lineCount then
-		if not(StoryTellerFrame.IsCurrentLineEmpty()) then
-			StoryTellerFrame.ReadLine(StoryTeller.text[StoryTeller.textCursor][1])
-		end
+		StoryTellerFrame.ReadLine(StoryTeller.text[StoryTeller.textCursor][1])
 		StoryTellerFrame.Next()
 	end
 end
