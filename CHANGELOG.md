@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.0.1
+------
+* Smooth scrolling
+* Bugfixes
+
 v1.0
 ----
 * First release.
