@@ -68,6 +68,8 @@ StoryTellerFrame.Load = function()
 	StoryTeller.text = {}
 	StoryTeller.textCursor = 1
 
+	StoryTellerFrame.ScrollTo(0)
+
 	if StoryTellerFrameText:GetText() ~= StoryTeller.Msg.PASTE_TEXT then
 		lines = { strsplit("\n", string.gsub(StoryTellerFrameText:GetText(), "\r", "")) }
 

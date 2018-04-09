@@ -113,7 +113,7 @@
 
 						<Scripts>
 							<OnEditFocusGained>
-								StoryTellerFrame.HighlightCurrentLine()
+								StoryTellerFrame.HighlightCurrentLine(0)
 							</OnEditFocusGained>
 							<OnLoad>
 								ScrollingEdit_OnCursorChanged(self, 0, 0, 0, 0)
