@@ -14,6 +14,8 @@ StoryTellerFrame.Init = function()
 			StoryTellerFrameReadButton:SetText(StoryTeller.Msg.READ)
 		end
 	end)
+	StoryTellerFrame.StopAnimation()
+	StoryTellerFrame:SetScript("OnUpdate", StoryTellerFrame.OnUpdate)
 end
 
 --- Handle escape key
@@ -27,8 +29,9 @@ StoryTellerFrame.Escape = function()
 end
 
 --- Highlight the current line in the edit box
+-- @param smooth (number) Smooth scroll duration
 --
-StoryTellerFrame.HighlightCurrentLine = function()
+StoryTellerFrame.HighlightCurrentLine = function(smooth)
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount > 0 and StoryTeller.text[StoryTeller.textCursor] ~= nil then
 		local line = StoryTeller.text[StoryTeller.textCursor]
@@ -46,7 +49,7 @@ StoryTellerFrame.HighlightCurrentLine = function()
 		local scrollCenter = 1/3
 
 		local scrollTo = lineY - scrollHeight * scrollCenter + lineHeight / 2
-		StoryTellerFrameScrollFrame:SetVerticalScroll(min(scrollRange, max(0, min(lineY, scrollTo))))
+		StoryTellerFrame.ScrollTo(min(scrollRange, max(0, min(lineY, scrollTo))), smooth)
 
 		StoryTellerFrameText:ClearFocus()
 	elseif lineCount == 0 then
@@ -73,32 +76,25 @@ StoryTellerFrame.Load = function()
 		local y = 0
 		local boxWidth = StoryTellerFrameText:GetWidth()
 		local _, fontHeight = StoryTellerFrame.GetTextLineSize('0', boxWidth)
-		local lineIsSpaces = false
 		for i = 1, table.getn(lines) do
+			lines[i] = strtrim(lines[i])
+
 			local lineLength = string.len(lines[i])
 			local lineWidth, lineHeight = StoryTellerFrame.GetTextLineSize(lines[i], boxWidth)
-			local wrapLines = floor(.5 + lineHeight / fontHeight)
+			local wrapLines = max(1, floor(.5 + lineHeight / fontHeight))
 
 			if not(StoryTellerFrame.IsTextLineEmpty(lines[i])) then
 				table.insert(StoryTeller.text, { lines[i], length, length + lineLength, y, wrapLines })
-				lineIsSpaces = false
-			elseif strtrim(lines[i]) == "" then
-				if lineIsSpaces then
-					wrapLines = 0
-				else
-					wrapLines = 1
-				end
-				lineIsSpaces = true
-			else
-				lineIsSpaces = false
 			end
 
 			y = y + wrapLines
 			length = length + lineLength + 1
 		end
+
+		StoryTellerFrameText:SetText(strjoin("\n", unpack(lines)))
 	end
 
-	StoryTellerFrame.HighlightCurrentLine()
+	StoryTellerFrame.HighlightCurrentLine(0)
 	StoryTellerFrame.Refresh()
 end
 
@@ -181,6 +177,52 @@ StoryTellerFrame.Refresh = function()
 	else
 		StoryTellerFrameReadButton:Disable()
 	end
+end
+
+--- Update frame
+-- @param self (Frame)
+-- @param elapsed (number
+StoryTellerFrame.OnUpdate = function(self, elapsed)
+	if StoryTellerFrame.animateScrollDuration ~= 0 and StoryTellerFrame.animateScrollFrom ~= StoryTellerFrame.animateScrollTo then
+
+		StoryTellerFrame.animateScrollTime = StoryTellerFrame.animateScrollTime + elapsed
+
+		local range = StoryTellerFrame.animateScrollTo - StoryTellerFrame.animateScrollFrom
+		local progression = min(1, StoryTellerFrame.animateScrollTime / StoryTellerFrame.animateScrollDuration)
+		local scrollTo = StoryTellerFrame.animateScrollFrom + range * progression
+
+		StoryTellerFrameScrollFrame:SetVerticalScroll(scrollTo)
+
+		if progression == 1 then
+			StoryTellerFrame.StopAnimation()
+		end
+	end
+end
+
+--- Smooth scroll to position
+-- @param to (number)
+-- @param duration (number)
+StoryTellerFrame.ScrollTo = function(to, duration)
+	if duration == nil then
+		duration = .25
+	end
+	if duration == 0 then
+		StoryTellerFrameScrollFrame:SetVerticalScroll(to)
+	else
+		StoryTellerFrame.animateScrollFrom = StoryTellerFrameScrollFrame:GetVerticalScroll()
+		StoryTellerFrame.animateScrollTo = to
+		StoryTellerFrame.animateScrollTime = 0
+		StoryTellerFrame.animateScrollDuration = duration
+	end
+end
+
+--- Stop smooth scroll animation
+--
+StoryTellerFrame.StopAnimation = function()
+	StoryTellerFrame.animateScrollFrom = 0
+	StoryTellerFrame.animateScrollTo = 0
+	StoryTellerFrame.animateScrollTime = 0
+	StoryTellerFrame.animateScrollDuration = 0
 end
 
 --- Read text line or macro
