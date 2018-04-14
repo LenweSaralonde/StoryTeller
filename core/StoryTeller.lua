@@ -6,6 +6,17 @@ StoryTeller = {}
 function StoryTeller.Init()
 	StoryTeller.Print(string.gsub(StoryTeller.Msg.STARTUP, "{version}", StoryTeller.Highlight(GetAddOnMetadata("StoryTeller", "Version"))))
 
+	-- Init settings
+	local defaultSettings = {
+		minimapPosition = 137,
+		mutedPlayers = {}
+	}
+	if StoryTeller_Settings ~= nil then
+		local k, v
+		for k,v in pairs(StoryTeller_Settings) do defaultSettings[k] = v end
+	end
+	StoryTeller_Settings = defaultSettings
+
 	-- /storyteller command
 	SlashCmdList["STORYTELLER"] = function(cmd)
 
@@ -47,4 +58,19 @@ function StoryTeller.Highlight(text, color)
 		color = 'FFFFFF'
 	end
 	return "|cFF" .. color .. text .. "|r"
+end
+
+--- Format text, adding highlights etc.
+-- @param text (string)
+-- @return (string)
+function StoryTeller.FormatText(text)
+
+	-- Highlight **text**
+	local search = "%*%*[^%*]+%*%*"
+	while string.find(text, search) do
+		local from, to = string.find(text, search)
+		text = string.sub(text, 1, from - 1) ..StoryTeller.Highlight(string.sub(text, from + 2, to - 2)) .. string.sub(text, to + 1)
+	end
+
+	return text
 end

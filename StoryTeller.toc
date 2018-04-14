@@ -3,10 +3,13 @@
 ## Author: LenweSaralonde
 ## Version: 1.0.1
 ## Notes: Tell stories with your character
+## SavedVariables: StoryTeller_Settings
 
 core\StoryTeller.lua
 ui\StoryTellerFrame.xml
 ui\StoryTellerFrame.lua
 ui\StoryTellerEditFrame.xml
 ui\StoryTellerEditFrame.lua
+ui\StoryTellerButton.xml
+ui\StoryTellerButton.lua
 locale\locale.xml

@@ -11,4 +11,10 @@ if ( GetLocale() == "frFR" ) then
 	StoryTeller.Msg.EDIT_TEXT = "Modifier le texte"
 	StoryTeller.Msg.SAVE = "Enregistrer"
 	StoryTeller.Msg.CANCEL = "Annuler"
+
+	StoryTeller.Msg.PLAYER_TOOLTIP_VERSION = "StoryTeller v{version}"
+	StoryTeller.Msg.TOOLTIP_LEFT_CLICK = "**Clic gauche** : {action}"
+	StoryTeller.Msg.TOOLTIP_DRAG_AND_DROP = "**Glisser-déposer** pour déplacer le bouton"
+	StoryTeller.Msg.TOOLTIP_ACTION_SHOW = "Ouvrir"
+	StoryTeller.Msg.TOOLTIP_ACTION_HIDE = "Fermer"
 end
