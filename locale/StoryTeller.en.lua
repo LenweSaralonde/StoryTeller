@@ -9,3 +9,8 @@ StoryTeller.Msg.CLEAR = "Clear"
 StoryTeller.Msg.READ = "Read"
 StoryTeller.Msg.PREV = "<<"
 StoryTeller.Msg.NEXT = ">>"
+
+StoryTeller.Msg.EDIT = "Edit"
+StoryTeller.Msg.EDIT_TEXT = "Edit text"
+StoryTeller.Msg.SAVE = "Save"
+StoryTeller.Msg.CANCEL = "Cancel"

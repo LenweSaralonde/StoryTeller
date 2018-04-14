@@ -6,4 +6,9 @@ if ( GetLocale() == "frFR" ) then
 	StoryTeller.Msg.CLEAR = "Effacer"
 
 	StoryTeller.Msg.READ = "Lire"
+
+	StoryTeller.Msg.EDIT = "Éditer"
+	StoryTeller.Msg.EDIT_TEXT = "Modifier le texte"
+	StoryTeller.Msg.SAVE = "Enregistrer"
+	StoryTeller.Msg.CANCEL = "Annuler"
 end

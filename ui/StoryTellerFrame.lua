@@ -6,9 +6,11 @@ StoryTellerFrame.Init = function()
 		if event == "PLAYER_ENTERING_WORLD" then
 			StoryTellerFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 			StoryTeller.Init()
+			StoryTellerEditFrame.Init()
 			StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
 			StoryTellerFrameTitle:SetText(StoryTeller.Msg.TELL_A_STORY)
 			StoryTellerFrameClearButton:SetText(StoryTeller.Msg.CLEAR)
+			StoryTellerFrameEditButton:SetText(StoryTeller.Msg.EDIT)
 			StoryTellerFramePrevButton:SetText(StoryTeller.Msg.PREV)
 			StoryTellerFrameNextButton:SetText(StoryTeller.Msg.NEXT)
 			StoryTellerFrameReadButton:SetText(StoryTeller.Msg.READ)
@@ -16,16 +18,6 @@ StoryTellerFrame.Init = function()
 	end)
 	StoryTellerFrame.StopAnimation()
 	StoryTellerFrame:SetScript("OnUpdate", StoryTellerFrame.OnUpdate)
-end
-
---- Handle escape key
---
-StoryTellerFrame.Escape = function()
-	if StoryTellerFrameText:HasFocus() then
-		StoryTellerFrameText:ClearFocus()
-	else
-		StoryTellerFrame:Hide()
-	end
 end
 
 --- Highlight the current line in the edit box
@@ -96,6 +88,30 @@ StoryTellerFrame.Load = function()
 
 	StoryTellerFrame.HighlightCurrentLine(0)
 	StoryTellerFrame.Refresh()
+end
+
+--- Clear text
+--
+StoryTellerFrame.Clear = function()
+	StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
+	StoryTellerFrameText:HighlightText(0)
+	StoryTellerFrame.ScrollTo(0)
+	StoryTellerFrameText:SetFocus()
+end
+
+--- Open edit frame
+--
+StoryTellerFrame.Edit = function()
+	if not(StoryTellerEditFrame:IsVisible()) then
+		local text = StoryTellerFrameText:GetText()
+		if text == StoryTeller.Msg.PASTE_TEXT then
+			text = ""
+		end
+		StoryTellerEditFrameText:SetText(text)
+		StoryTellerEditFrameScrollFrame:SetVerticalScroll(0)
+		StoryTellerEditFrame:Show()
+		StoryTellerEditFrameText:SetFocus()
+	end
 end
 
 --- Return true if the provided text line is blank or is a comment

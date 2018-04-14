@@ -7,4 +7,6 @@
 core\StoryTeller.lua
 ui\StoryTellerFrame.xml
 ui\StoryTellerFrame.lua
+ui\StoryTellerEditFrame.xml
+ui\StoryTellerEditFrame.lua
 locale\locale.xml
