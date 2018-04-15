@@ -37,8 +37,7 @@ function StoryTellerButton.OnClick(self, button)
 			StoryTellerFrame:Hide()
 		else
 			StoryTellerFrame:Show()
-			StoryTellerFrameText:SetFocus()
-			StoryTellerFrameText:HighlightText(0)
+			StoryTellerFrame.HighlightCurrentLine(0)
 		end
 	end
 	StoryTellerButton.Reposition()

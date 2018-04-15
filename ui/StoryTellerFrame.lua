@@ -15,10 +15,12 @@ StoryTellerFrame.Init = function()
 			StoryTellerFramePrevButton:SetText(StoryTeller.Msg.PREV)
 			StoryTellerFrameNextButton:SetText(StoryTeller.Msg.NEXT)
 			StoryTellerFrameReadButton:SetText(StoryTeller.Msg.READ)
+			StoryTellerFrame.Clear()
 		end
 	end)
 	StoryTellerFrame.StopAnimation()
 	StoryTellerFrame:SetScript("OnUpdate", StoryTellerFrame.OnUpdate)
+	StoryTellerFrameText:SetScript("OnTextChanged", StoryTellerFrame.TextChanged)
 end
 
 --- Highlight the current line in the edit box
@@ -54,6 +56,85 @@ StoryTellerFrame.HighlightCurrentLine = function(smooth)
 	end
 end
 
+--- Split text in parts of max 255 characters long
+-- @param text (string)
+-- @param level (int)
+-- @return (string)
+local function splitText(text, level)
+
+	if string.len(text) <= 255 then
+		return text
+	end
+
+	if not(level) then
+		level = 0
+	end
+
+	local separator
+	if level == 0 then
+		separator = "\n"
+	elseif level == 1 then
+		separator = "%.%!%?"
+	elseif level == 2 then
+		separator = "%;%:"
+	elseif level == 3 then
+		separator = "%,"
+	elseif level == 4 then
+		separator = " "
+	end
+
+	local function wrapLine(line)
+		return string.gsub(line, "[\n]$", "") .. "\n"
+	end
+
+	local splittedParts = ""
+	local splittedPart = ""
+
+	local cursor = 1
+	local chunk
+
+	while cursor <= string.len(text) do
+		local regexp = "[^" .. separator .. "]*[" .. separator .. "]"
+
+		if level ~= 0 then
+			regexp = regexp .. "+[\n]?"
+		end
+
+		local from, to = string.find(text, regexp, cursor)
+
+		if from ~= nil then
+			chunk = string.sub(text, from, to)
+			cursor = to + 1
+		else
+			chunk = string.sub(text, cursor)
+			cursor = string.len(text) + 1
+		end
+
+		if string.len(splittedPart) + string.len(chunk) <= 255 then
+			splittedPart = splittedPart .. chunk
+		else
+			if splittedPart ~= "" then
+				splittedParts = splittedParts .. wrapLine(splittedPart)
+			end
+			splittedPart = ""
+
+			if string.len(chunk) <= 255 then
+				splittedParts = splittedParts .. chunk
+			elseif level < 4 then
+				splittedParts = splittedParts .. wrapLine(splitText(chunk, level + 1))
+			else
+				splittedParts = splittedParts .. wrapLine(chunk)
+			end
+		end
+	end
+
+	if splittedPart ~= "" then
+		splittedParts = splittedParts .. wrapLine(splittedPart)
+	end
+
+	return splittedParts
+end
+
 --- Load text
 --
 StoryTellerFrame.Load = function()
@@ -62,7 +143,8 @@ StoryTellerFrame.Load = function()
 	StoryTeller.textCursor = 1
 
 	if StoryTellerFrameText:GetText() ~= StoryTeller.Msg.PASTE_TEXT then
-		lines = { strsplit("\n", string.gsub(StoryTellerFrameText:GetText(), "\r", "")) }
+		local text = string.gsub(StoryTellerFrameText:GetText(), "\r", "")
+		lines = { strsplit("\n", splitText(text)) }
 
 		local i
 		local length = 0
@@ -85,18 +167,29 @@ StoryTellerFrame.Load = function()
 		end
 
 		StoryTellerFrameText:SetText(strjoin("\n", unpack(lines)))
+		StoryTellerFrame.HighlightCurrentLine(0)
+	else
+		StoryTellerFrame.ScrollTo(0, 0)
 	end
 
-	StoryTellerFrame.HighlightCurrentLine(0)
 	StoryTellerFrame.Refresh()
+end
+
+--- Reload text when changed
+--
+StoryTellerFrame.TextChanged = function(self, isUserInput)
+	ScrollingEdit_OnTextChanged(self, self:GetParent())
+	if isUserInput then
+		StoryTellerFrame.Load()
+	end
+	StoryTellerFrame.HighlightCurrentLine(0)
 end
 
 --- Clear text
 --
 StoryTellerFrame.Clear = function()
 	StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
-	StoryTellerFrameText:HighlightText(0)
-	StoryTellerFrame.ScrollTo(0)
+	StoryTellerFrame.Load()
 	StoryTellerFrameText:SetFocus()
 end
 

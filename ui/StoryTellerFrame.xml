@@ -138,15 +138,11 @@
 
 						<Scripts>
 							<OnEditFocusGained>
-								StoryTellerFrame.HighlightCurrentLine(0)
+								StoryTellerFrameText:HighlightText(0)
 							</OnEditFocusGained>
 							<OnLoad>
 								ScrollingEdit_OnCursorChanged(self, 0, 0, 0, 0)
 							</OnLoad>
-							<OnTextChanged>
-								ScrollingEdit_OnTextChanged(self, self:GetParent())
-								StoryTellerFrame.Load()
-							</OnTextChanged>
 							<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 							<OnUpdate>
 								ScrollingEdit_OnUpdate(self, elapsed, self:GetParent())
