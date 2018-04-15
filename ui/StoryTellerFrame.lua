@@ -142,6 +142,10 @@ StoryTellerFrame.Load = function()
 	StoryTeller.text = {}
 	StoryTeller.textCursor = 1
 
+	if strtrim(StoryTellerFrameText:GetText()) == "" then
+		StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
+	end
+
 	if StoryTellerFrameText:GetText() ~= StoryTeller.Msg.PASTE_TEXT then
 		local text = string.gsub(StoryTellerFrameText:GetText(), "\r", "")
 		lines = { strsplit("\n", splitText(text)) }
@@ -166,10 +170,15 @@ StoryTellerFrame.Load = function()
 			length = length + lineLength + 1
 		end
 
-		StoryTellerFrameText:SetText(strjoin("\n", unpack(lines)))
+		local newText = strjoin("\n", unpack(lines))
+		StoryTellerFrameText:SetText(newText)
+		StoryTellerEditFrameText:SetText(newText)
+		StoryTellerEditFrameScrollFrame:SetVerticalScroll(0)
 		StoryTellerFrame.HighlightCurrentLine(0)
 	else
 		StoryTellerFrame.ScrollTo(0, 0)
+		StoryTellerEditFrameText:SetText("")
+		StoryTellerEditFrameScrollFrame:SetVerticalScroll(0)
 	end
 
 	StoryTellerFrame.Refresh()
@@ -197,12 +206,6 @@ end
 --
 StoryTellerFrame.Edit = function()
 	if not(StoryTellerEditFrame:IsVisible()) then
-		local text = StoryTellerFrameText:GetText()
-		if text == StoryTeller.Msg.PASTE_TEXT then
-			text = ""
-		end
-		StoryTellerEditFrameText:SetText(text)
-		StoryTellerEditFrameScrollFrame:SetVerticalScroll(0)
 		StoryTellerEditFrame:Show()
 		StoryTellerEditFrameText:SetFocus()
 	end

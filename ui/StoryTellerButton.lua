@@ -32,12 +32,18 @@ function StoryTellerButton.OnMouseUp()
 end
 
 function StoryTellerButton.OnClick(self, button)
-	if button == "LeftButton" or button == "RightButton" then
+	if button == "LeftButton" then
 		if StoryTellerFrame:IsVisible() then
 			StoryTellerFrame:Hide()
 		else
 			StoryTellerFrame:Show()
 			StoryTellerFrame.HighlightCurrentLine(0)
+		end
+	elseif button == "RightButton" then
+		if StoryTellerEditFrame:IsVisible() then
+			StoryTellerEditFrame:Hide()
+		else
+			StoryTellerEditFrame:Show()
 		end
 	end
 	StoryTellerButton.Reposition()
@@ -52,14 +58,24 @@ function StoryTellerButton.ShowTooltip()
 	local leftClickLine = StoryTeller.Msg.TOOLTIP_LEFT_CLICK
 	local leftAction
 	if StoryTellerFrame:IsVisible() then
-		leftAction = StoryTeller.Msg.TOOLTIP_ACTION_HIDE
+		leftAction = StoryTeller.Msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW
 	else
-		leftAction = StoryTeller.Msg.TOOLTIP_ACTION_SHOW
+		leftAction = StoryTeller.Msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW
 	end
 	leftClickLine = string.gsub(leftClickLine, "{action}", leftAction)
 
+	local rightClickLine = StoryTeller.Msg.TOOLTIP_RIGHT_CLICK
+	local rightAction
+	if StoryTellerEditFrame:IsVisible() then
+		rightAction = StoryTeller.Msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW
+	else
+		rightAction = StoryTeller.Msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW
+	end
+	rightClickLine = string.gsub(rightClickLine, "{action}", rightAction)
+
 	GameTooltip:AddLine(mainLine, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	GameTooltip:AddLine(StoryTeller.FormatText(leftClickLine), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	GameTooltip:AddLine(StoryTeller.FormatText(rightClickLine), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	GameTooltip:AddLine(StoryTeller.FormatText(StoryTeller.Msg.TOOLTIP_DRAG_AND_DROP), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 
 	GameTooltip:Show();

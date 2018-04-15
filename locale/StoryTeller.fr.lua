@@ -14,7 +14,10 @@ if ( GetLocale() == "frFR" ) then
 
 	StoryTeller.Msg.PLAYER_TOOLTIP_VERSION = "StoryTeller v{version}"
 	StoryTeller.Msg.TOOLTIP_LEFT_CLICK = "**Clic gauche** : {action}"
+	StoryTeller.Msg.TOOLTIP_RIGHT_CLICK = "**Clic droit** : {action}"
 	StoryTeller.Msg.TOOLTIP_DRAG_AND_DROP = "**Glisser-déposer** pour déplacer le bouton"
-	StoryTeller.Msg.TOOLTIP_ACTION_SHOW = "Ouvrir"
-	StoryTeller.Msg.TOOLTIP_ACTION_HIDE = "Fermer"
+	StoryTeller.Msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Ouvrir la fenêtre principale"
+	StoryTeller.Msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Fermer la fenêtre principale"
+	StoryTeller.Msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Ouvrir l'éditeur"
+	StoryTeller.Msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Fermer l'éditeur"
 end
