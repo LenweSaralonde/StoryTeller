@@ -158,6 +158,14 @@ StoryTellerFrame.Load = function()
 		for i = 1, table.getn(lines) do
 			lines[i] = strtrim(lines[i])
 
+			-- Comment secure commands
+			local command = string.match(lines[i], "^/%w+")
+			if command then
+				if IsSecureCmd(command) then
+					lines[i] = '# ' .. lines[i]
+				end
+			end
+
 			local lineLength = string.len(lines[i])
 			local lineWidth, lineHeight = StoryTellerFrame.GetTextLineSize(lines[i], boxWidth)
 			local wrapLines = max(1, floor(.5 + lineHeight / fontHeight))
