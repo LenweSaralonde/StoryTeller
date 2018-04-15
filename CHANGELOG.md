@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v1.1
+----
+* Added edit window
+* Added minimap button
+* Added automatic line break for lines longer than 256 characters
+* Secured commands are now automatically commented out to avoid annoying error popups
+
 v1.0.1
 ------
 * Smooth scrolling
