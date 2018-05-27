@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.0.1
+--------
+* Fixed minimap button when UI is scaled (Yimiprod)
+
 v1.1
 ----
 * Added edit window
