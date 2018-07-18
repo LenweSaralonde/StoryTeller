@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.0.2
+--------
+* Updated for WoW 8.0
+
 v1.1.0.1
 --------
 * Fixed minimap button when UI is scaled (Yimiprod)
