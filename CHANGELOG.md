@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.0.4
+--------
+* Frames are now clamped to screen
+
 v1.1.0.3
 --------
 * Updated for WoW 8.1
