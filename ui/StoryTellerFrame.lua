@@ -21,6 +21,12 @@ StoryTellerFrame.Init = function()
 	StoryTellerFrame.StopAnimation()
 	StoryTellerFrame:SetScript("OnUpdate", StoryTellerFrame.OnUpdate)
 	StoryTellerFrameText:SetScript("OnTextChanged", StoryTellerFrame.TextChanged)
+
+	-- Create text highlight texture (workaround to text select bug introduced in WoW 8.2)
+	StoryTellerFrameText.highlightTexture = StoryTellerFrameText:CreateTexture(nil, "BACKGROUND")
+	StoryTellerFrameText.highlightTexture:SetColorTexture(1, 1, 1, .25)
+	StoryTellerFrameText.highlightTexture:SetPoint("LEFT")
+	StoryTellerFrameText.highlightTexture:SetPoint("RIGHT")
 end
 
 --- Highlight the current line in the edit box
@@ -30,7 +36,7 @@ StoryTellerFrame.HighlightCurrentLine = function(smooth)
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount > 0 and StoryTeller.text[StoryTeller.textCursor] ~= nil then
 		local line = StoryTeller.text[StoryTeller.textCursor]
-		StoryTellerFrameText:HighlightText(line[2], line[3])
+		StoryTellerFrameText:HighlightText(0, 0)
 
 		-- Adjust scrolling
 		local boxWidth = StoryTellerFrameText:GetWidth()
@@ -45,6 +51,11 @@ StoryTellerFrame.HighlightCurrentLine = function(smooth)
 
 		local scrollTo = lineY - scrollHeight * scrollCenter + lineHeight / 2
 		StoryTellerFrame.ScrollTo(min(scrollRange, max(0, min(lineY, scrollTo))), smooth)
+
+		-- Highlight current line
+		StoryTellerFrameText.highlightTexture:Show()
+		StoryTellerFrameText.highlightTexture:SetPoint("TOP", 0, -lineY)
+		StoryTellerFrameText.highlightTexture:SetHeight(lineHeight)
 
 		StoryTellerFrameText:ClearFocus()
 	elseif lineCount == 0 then
@@ -208,6 +219,8 @@ StoryTellerFrame.Clear = function()
 	StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
 	StoryTellerFrame.Load()
 	StoryTellerFrameText:SetFocus()
+	StoryTellerFrameText:HighlightText(0)
+	StoryTellerFrameText.highlightTexture:Hide()
 end
 
 --- Open edit frame
