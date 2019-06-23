@@ -5,11 +5,11 @@
 ## Notes: Tell long stories with your character
 ## SavedVariables: StoryTeller_Settings
 
+embeds.xml
 core\StoryTeller.lua
 ui\StoryTellerFrame.xml
 ui\StoryTellerFrame.lua
 ui\StoryTellerEditFrame.xml
 ui\StoryTellerEditFrame.lua
-ui\StoryTellerButton.xml
 ui\StoryTellerButton.lua
 locale\locale.xml

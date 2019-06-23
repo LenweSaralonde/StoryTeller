@@ -1,35 +1,28 @@
+StoryTellerButton = LibStub("AceAddon-3.0"):NewAddon("StoryTellerButton")
+
+local icon = LibStub("LibDBIcon-1.0")
 
 function StoryTellerButton.Init()
-	StoryTellerButton.Reposition()
-	StoryTellerButton:SetScript("OnClick", StoryTellerButton.OnClick)
-end
+	local storyTellerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("StoryTeller", {
+		type = "data source",
+		text = "StoryTeller",
+		icon = "Interface\\Icons\\Inv_misc_book_08",
+		OnClick = StoryTellerButton.OnClick,
+		OnEnter = StoryTellerButton.ShowTooltip,
+		OnLeave = StoryTellerButton.HideTooltip
+	})
 
-function StoryTellerButton.Reposition()
-	local radius = Minimap:GetWidth() / 2 + 8
-	StoryTellerButton:SetPoint("CENTER", "Minimap", "CENTER", radius * cos(StoryTeller_Settings.minimapPosition), radius * sin(StoryTeller_Settings.minimapPosition))
-	StoryTellerButton:SetFrameLevel(Minimap:GetFrameLevel()+1000)
-end
+	-- Convert old minimap position format
+	if tonumber(StoryTeller_Settings.minimapPosition) ~= nil then
+		StoryTeller_Settings.minimap = {
+			minimapPos = StoryTeller_Settings.minimapPosition,
+			hide = false
+		}
+		StoryTeller_Settings.minimapPosition = nil
+	end
 
-function StoryTellerButton.DraggingFrame_OnUpdate()
-	local xpos, ypos = GetCursorPosition()
-	local xmin, ymin = Minimap:GetCenter()
-	local scale = UIParent:GetScale()
-
-	xpos = xpos / scale
-	ypos = ypos / scale
-
-	StoryTeller_Settings.minimapPosition = math.deg(math.atan2(ypos - ymin, xpos - xmin)) % 360
-	StoryTellerButton.Reposition()
-end
-
-function StoryTellerButton.OnMouseDown()
-	StoryTellerButton_Icon:SetWidth(14)
-	StoryTellerButton_Icon:SetHeight(14)
-end
-
-function StoryTellerButton.OnMouseUp()
-	StoryTellerButton_Icon:SetWidth(16)
-	StoryTellerButton_Icon:SetHeight(16)
+	-- Create button
+	icon:Register("StoryTeller", storyTellerLDB, StoryTeller_Settings.minimap)
 end
 
 function StoryTellerButton.OnClick(self, button)
@@ -47,12 +40,10 @@ function StoryTellerButton.OnClick(self, button)
 			StoryTellerEditFrame:Show()
 		end
 	end
-	StoryTellerButton.Reposition()
-	StoryTellerButton.ShowTooltip()
 end
 
 function StoryTellerButton.ShowTooltip()
-	GameTooltip:SetOwner(StoryTellerButton, "ANCHOR_BOTTOMLEFT");
+	GameTooltip:SetOwner(icon:GetMinimapButton("StoryTeller"), "ANCHOR_BOTTOMLEFT");
 
 	local mainLine = string.gsub(StoryTeller.Msg.PLAYER_TOOLTIP_VERSION, "{version}", GetAddOnMetadata("StoryTeller", "Version"))
 
