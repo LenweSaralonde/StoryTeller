@@ -8,7 +8,10 @@ function StoryTeller.Init()
 
 	-- Init settings
 	local defaultSettings = {
-		minimapPosition = 137,
+		minimap = {
+			minimapPos = 137,
+			hide = false
+		},
 		mutedPlayers = {}
 	}
 	if StoryTeller_Settings ~= nil then
