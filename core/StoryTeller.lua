@@ -45,13 +45,6 @@ function StoryTeller.Print(msg)
 	DEFAULT_CHAT_FRAME:AddMessage(msg, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 end
 
---- Display an error message in the console
--- @param msg (string)
-function StoryTeller.Error(msg)
-	message(msg)
-	PlaySoundFile("Sound\\interface\\Error.ogg")
-end
-
 --- Highlight text
 -- @param text (string)
 -- @param color (string)
