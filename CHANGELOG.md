@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.1.0.6
+--------
+* Updated for WoW 8.2.5
+* HD borders!
+
 v1.1.0.5
 --------
 * Updated for WoW 8.2

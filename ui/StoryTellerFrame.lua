@@ -16,6 +16,7 @@ StoryTellerFrame.Init = function()
 			StoryTellerFrameNextButton:SetText(StoryTeller.Msg.NEXT)
 			StoryTellerFrameReadButton:SetText(StoryTeller.Msg.READ)
 			StoryTellerFrame.Clear()
+			StoryTellerFrame.noEscape = true
 		end
 	end)
 	StoryTellerFrame.StopAnimation()

@@ -1,12 +1,13 @@
-## Interface: 80200
+## Interface: 80205
 ## Title: StoryTeller
 ## Author: LenweSaralonde
-## Version: 1.1.0.5
+## Version: 1.1.0.6
 ## Notes: Tell long stories with your character
 ## SavedVariables: StoryTeller_Settings
 
 embeds.xml
 core\StoryTeller.lua
+ui\StoryTellerWidgets.xml
 ui\StoryTellerFrame.xml
 ui\StoryTellerFrame.lua
 ui\StoryTellerEditFrame.xml
