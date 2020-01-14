@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.0.7
+--------
+* Updated for WoW 8.3
+
 v1.1.0.6
 --------
 * Updated for WoW 8.2.5
