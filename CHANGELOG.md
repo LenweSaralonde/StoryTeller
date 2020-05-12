@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.0.7
+--------
+* Updated for WoW Classic 1.13.3
+
 v1.1.0.6
 --------
 * Updated frames behavior to match Musician's
