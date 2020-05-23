@@ -70,3 +70,13 @@ function StoryTeller.FormatText(text)
 
 	return text
 end
+
+--- Constraints the button text size
+-- @param button (Button)
+function StoryTeller.SetButtonTextSize(button)
+	local fontString = button:GetFontString()
+	fontString:SetWidth(button:GetWidth() - 10)
+	if fontString:IsTruncated() and button.tooltipText == nil then
+		button.tooltipText = fontString:GetText()
+	end
+end

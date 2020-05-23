@@ -3,6 +3,9 @@ StoryTellerEditFrame.Init = function()
 	StoryTellerEditFrameClearButton:SetText(StoryTeller.Msg.CLEAR)
 	StoryTellerEditFrameCancelButton:SetText(StoryTeller.Msg.CANCEL)
 	StoryTellerEditFrameSaveButton:SetText(StoryTeller.Msg.SAVE)
+	StoryTeller.SetButtonTextSize(StoryTellerEditFrameClearButton)
+	StoryTeller.SetButtonTextSize(StoryTellerEditFrameCancelButton)
+	StoryTeller.SetButtonTextSize(StoryTellerEditFrameSaveButton)
 end
 
 StoryTellerEditFrame.Clear = function()
