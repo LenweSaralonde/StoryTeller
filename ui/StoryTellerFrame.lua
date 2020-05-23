@@ -15,6 +15,11 @@ StoryTellerFrame.Init = function()
 			StoryTellerFramePrevButton:SetText(StoryTeller.Msg.PREV)
 			StoryTellerFrameNextButton:SetText(StoryTeller.Msg.NEXT)
 			StoryTellerFrameReadButton:SetText(StoryTeller.Msg.READ)
+			StoryTeller.SetButtonTextSize(StoryTellerFrameClearButton)
+			StoryTeller.SetButtonTextSize(StoryTellerFrameEditButton)
+			StoryTeller.SetButtonTextSize(StoryTellerFramePrevButton)
+			StoryTeller.SetButtonTextSize(StoryTellerFrameNextButton)
+			StoryTeller.SetButtonTextSize(StoryTellerFrameReadButton)
 			StoryTellerFrame.Clear()
 			StoryTellerFrame.noEscape = true
 		end
