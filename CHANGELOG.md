@@ -1,6 +1,14 @@
 Changelog
 =========
 
+v1.1.0.9
+--------
+* Added russian translation by Hubbotu
+
+v1.1.0.8
+--------
+* Align version number with Classic version
+
 v1.1.0.7
 --------
 * Updated for WoW 8.3
