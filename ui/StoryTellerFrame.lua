@@ -1,10 +1,10 @@
 --- Main frame init
 --
 StoryTellerFrame.Init = function()
-	StoryTellerFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	StoryTellerFrame:RegisterEvent("PLAYER_LOGIN")
 	StoryTellerFrame:SetScript("OnEvent", function(self, event, ...)
-		if event == "PLAYER_ENTERING_WORLD" then
-			StoryTellerFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		if event == "PLAYER_LOGIN" then
+			StoryTellerFrame:UnregisterEvent("PLAYER_LOGIN")
 			StoryTeller.Init()
 			StoryTellerEditFrame.Init()
 			StoryTellerButton.Init()
