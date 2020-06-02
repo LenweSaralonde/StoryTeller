@@ -4,7 +4,7 @@ local icon = LibStub("LibDBIcon-1.0")
 
 function StoryTellerButton.Init()
 	local storyTellerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("StoryTeller", {
-		type = "data source",
+		type = "launcher",
 		text = "StoryTeller",
 		icon = "Interface\\Icons\\Inv_misc_book_08",
 		OnClick = StoryTellerButton.OnClick,
@@ -42,8 +42,10 @@ function StoryTellerButton.OnClick(self, button)
 	end
 end
 
-function StoryTellerButton.ShowTooltip()
-	GameTooltip:SetOwner(icon:GetMinimapButton("StoryTeller"), "ANCHOR_BOTTOMLEFT");
+function StoryTellerButton.ShowTooltip(self)
+	if self then
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+	end
 
 	local mainLine = string.gsub(StoryTeller.Msg.PLAYER_TOOLTIP_VERSION, "{version}", GetAddOnMetadata("StoryTeller", "Version"))
 
