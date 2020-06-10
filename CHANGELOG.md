@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.0.10
+---------
+* Fixed minimap button issues with some 3rd party addons
+
 v1.1.0.9
 --------
 * Added russian translation by Hubbotu
