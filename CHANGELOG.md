@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.1.1.0
+---------
+* Updated for WoW Classic 1.13.5
+* Set default window position to the right
+
 v1.1.0.9
 --------
 * Added russian translation by Hubbotu
