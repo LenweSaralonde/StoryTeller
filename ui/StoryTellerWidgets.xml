@@ -36,10 +36,6 @@
 			</OnHide>
 		</Scripts>
 
-		<Anchors>
-			<Anchor point="CENTER" x="0" y="0" />
-		</Anchors>
-
 		<Frames>
 			<Button name="$parentCloseButton" parentKey="close" inherits="UIPanelCloseButton">
 				<Anchors>
