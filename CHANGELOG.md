@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.1.1.0
+---------
+* Updated for WoW Shadowlands 9.0.1 prepatch
+* Set default window position to the right
+
 v1.1.0.10
 ---------
 * Fixed minimap button issues with some 3rd party addons
