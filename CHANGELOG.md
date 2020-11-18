@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.1.1.1
+---------
+* Updated for WoW Shadowlands 9.0.2
+* Set default window position to the right
+
 v1.1.1.0
 ---------
 * Updated for WoW Shadowlands 9.0.1 prepatch
