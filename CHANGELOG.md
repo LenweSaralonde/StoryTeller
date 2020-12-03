@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.1.6
+---------
+* Updated for WoW Classic 1.13.6
+
 v1.1.1.0
 ---------
 * Updated for WoW Classic 1.13.5
