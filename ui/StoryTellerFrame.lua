@@ -1,6 +1,6 @@
 --- Main frame init
 --
-StoryTellerFrame.Init = function()
+function StoryTellerFrame.Init()
 	StoryTellerFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	StoryTellerFrame:SetScript("OnEvent", function(self, event, ...)
 		if event == "PLAYER_ENTERING_WORLD" then
@@ -38,7 +38,7 @@ end
 --- Highlight the current line in the edit box
 -- @param smooth (number) Smooth scroll duration
 --
-StoryTellerFrame.HighlightCurrentLine = function(smooth)
+function StoryTellerFrame.HighlightCurrentLine(smooth)
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount > 0 and StoryTeller.text[StoryTeller.textCursor] ~= nil then
 		local line = StoryTeller.text[StoryTeller.textCursor]
@@ -154,7 +154,7 @@ end
 
 --- Load text
 --
-StoryTellerFrame.Load = function()
+function StoryTellerFrame.Load()
 	local lines = {}
 	StoryTeller.text = {}
 	StoryTeller.textCursor = 1
@@ -211,7 +211,7 @@ end
 
 --- Reload text when changed
 --
-StoryTellerFrame.TextChanged = function(self, isUserInput)
+function StoryTellerFrame.TextChanged(self, isUserInput)
 	ScrollingEdit_OnTextChanged(self, self:GetParent())
 	if isUserInput then
 		StoryTellerFrame.Load()
@@ -221,7 +221,7 @@ end
 
 --- Clear text
 --
-StoryTellerFrame.Clear = function()
+function StoryTellerFrame.Clear()
 	StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
 	StoryTellerFrame.Load()
 	StoryTellerFrameText:SetFocus()
@@ -231,7 +231,7 @@ end
 
 --- Open edit frame
 --
-StoryTellerFrame.Edit = function()
+function StoryTellerFrame.Edit()
 	if not(StoryTellerEditFrame:IsVisible()) then
 		StoryTellerEditFrame:Show()
 		StoryTellerEditFrameText:SetFocus()
@@ -241,7 +241,7 @@ end
 --- Return true if the provided text line is blank or is a comment
 -- @param text (string)
 -- @return (boolean)
-StoryTellerFrame.IsTextLineEmpty = function(text)
+function StoryTellerFrame.IsTextLineEmpty(text)
 	local line = strtrim(text)
 	return line == "" or string.find(line, "%#") == 1 or string.find(line, "%-%-") == 1 or string.find(line, "%/%/") == 1 or string.find(line, "REM%s") == 1
 end
@@ -250,7 +250,7 @@ end
 -- @param text (string)
 -- @param maxWidth (number)
 -- @return (number), (number)
-StoryTellerFrame.GetTextLineSize = function(text, maxWidth)
+function StoryTellerFrame.GetTextLineSize(text, maxWidth)
 	-- Create a clone of the FontString for measurements
 	if StoryTellerFrame.fsClone == nil then
 		local fs = StoryTellerFrameText:GetRegions()
@@ -265,7 +265,7 @@ end
 
 --- Go to previous text line
 --
-StoryTellerFrame.Prev = function()
+function StoryTellerFrame.Prev()
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount and StoryTeller.textCursor > 1 then
 		StoryTeller.textCursor = StoryTeller.textCursor -  1
@@ -276,7 +276,7 @@ end
 
 --- Go to next text line
 --
-StoryTellerFrame.Next = function()
+function StoryTellerFrame.Next()
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount and StoryTeller.textCursor <= lineCount then
 		StoryTeller.textCursor = StoryTeller.textCursor + 1
@@ -287,7 +287,7 @@ end
 
 --- Read the current line
 --
-StoryTellerFrame.Read = function()
+function StoryTellerFrame.Read()
 	local lineCount = table.getn(StoryTeller.text)
 	if lineCount and StoryTeller.textCursor <= lineCount then
 		StoryTellerFrame.ReadLine(StoryTeller.text[StoryTeller.textCursor][1])
@@ -297,7 +297,7 @@ end
 
 --- Refresh buttons
 --
-StoryTellerFrame.Refresh = function()
+function StoryTellerFrame.Refresh()
 	local lineCount = table.getn(StoryTeller.text)
 
 	if lineCount > 0 and StoryTeller.textCursor <= lineCount then
@@ -322,7 +322,7 @@ end
 --- Update frame
 -- @param self (Frame)
 -- @param elapsed (number
-StoryTellerFrame.OnUpdate = function(self, elapsed)
+function StoryTellerFrame.OnUpdate(self, elapsed)
 	if StoryTellerFrame.animateScrollDuration ~= 0 and StoryTellerFrame.animateScrollFrom ~= StoryTellerFrame.animateScrollTo then
 
 		StoryTellerFrame.animateScrollTime = StoryTellerFrame.animateScrollTime + elapsed
@@ -342,7 +342,7 @@ end
 --- Smooth scroll to position
 -- @param to (number)
 -- @param duration (number)
-StoryTellerFrame.ScrollTo = function(to, duration)
+function StoryTellerFrame.ScrollTo(to, duration)
 	if duration == nil then
 		duration = .25
 	end
@@ -358,7 +358,7 @@ end
 
 --- Stop smooth scroll animation
 --
-StoryTellerFrame.StopAnimation = function()
+function StoryTellerFrame.StopAnimation()
 	StoryTellerFrame.animateScrollFrom = 0
 	StoryTellerFrame.animateScrollTo = 0
 	StoryTellerFrame.animateScrollTime = 0
@@ -367,7 +367,7 @@ end
 
 --- Read text line or macro
 --
-StoryTellerFrame.ReadLine = function(text)
+function StoryTellerFrame.ReadLine(text)
 	text = strtrim(text)
 	local editBox = ChatFrame1EditBox
 	editBox:SetText(text)
