@@ -1,25 +1,25 @@
-if ( GetLocale() == "ruRU" ) then
-	StoryTeller.Msg.STARTUP = "StoryTeller v{version}."
+local msg = StoryTeller.InitLocale('ru', "русский", 'ruRU')
 
-	StoryTeller.Msg.PASTE_TEXT = "Вставьте текст сюда..."
-	StoryTeller.Msg.TELL_A_STORY = "Рассказать историю"
-	StoryTeller.Msg.CLEAR = "Очистить"
+msg.STARTUP = "StoryTeller v{version}."
 
-	StoryTeller.Msg.READ = "Прочитано"
-	StoryTeller.Msg.PREV = "<<"
-	StoryTeller.Msg.NEXT = ">>"
+msg.PASTE_TEXT = "Вставьте текст сюда…"
+msg.TELL_A_STORY = "Рассказать историю"
+msg.CLEAR = "Очистить"
 
-	StoryTeller.Msg.EDIT = "Редактировать"
-	StoryTeller.Msg.EDIT_TEXT = "Редактировать текст"
-	StoryTeller.Msg.SAVE = "Сохранить"
-	StoryTeller.Msg.CANCEL = "Отмена"
+msg.READ = "Прочитано"
+msg.PREV = "<<"
+msg.NEXT = ">>"
 
-	StoryTeller.Msg.PLAYER_TOOLTIP_VERSION = "StoryTeller v{version}"
-	StoryTeller.Msg.TOOLTIP_LEFT_CLICK = "**ЛКМ**: {action}"
-	StoryTeller.Msg.TOOLTIP_RIGHT_CLICK = "**ПКМ**: {action}"
-	StoryTeller.Msg.TOOLTIP_DRAG_AND_DROP = "**Перетаскивание** для перемещения кнопки"
-	StoryTeller.Msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Показать главное окно"
-	StoryTeller.Msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Скрыть главное окно"
-	StoryTeller.Msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Открыть редактор"
-	StoryTeller.Msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Закрыть редактор"
-end
+msg.EDIT = "Редактировать"
+msg.EDIT_TEXT = "Редактировать текст"
+msg.SAVE = "Сохранить"
+msg.CANCEL = "Отмена"
+
+msg.PLAYER_TOOLTIP_VERSION = "StoryTeller v{version}"
+msg.TOOLTIP_LEFT_CLICK = "**ЛКМ**: {action}"
+msg.TOOLTIP_RIGHT_CLICK = "**ПКМ**: {action}"
+msg.TOOLTIP_DRAG_AND_DROP = "**Перетаскивание** для перемещения кнопки"
+msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Показать главное окно"
+msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Скрыть главное окно"
+msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Открыть редактор"
+msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Закрыть редактор"

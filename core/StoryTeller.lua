@@ -1,6 +1,8 @@
 
 StoryTeller = {}
 
+StoryTeller.Locale = {}
+
 --- Main init
 --
 function StoryTeller.Init()
@@ -37,6 +39,40 @@ function StoryTeller.Init()
 	StoryTeller.text = {}
 	StoryTeller.textCursor = nil
 
+end
+
+--- Initialize a locale and returns the initialized message table
+-- @param languageCode (string) Short language code (ie 'en')
+-- @param languageName (string) Locale name (ie "English")
+-- @param localeCode (string) Long locale code (ie 'enUS')
+-- @param[opt] ... (string) Additional locale codes
+-- @return msg (table) Initialized message table
+function StoryTeller.InitLocale(languageCode, languageName, localeCode, ...)
+	local localeCodes = { localeCode, ... }
+
+	-- Set English (en) as base locale
+	local baseLocale = languageCode == 'en' and StoryTeller.LocaleBase or StoryTeller.Locale.en
+
+	-- Init table
+	local msg = Mixin({}, baseLocale)
+	StoryTeller.Locale[languageCode] = msg
+	msg.LOCALE_NAME = languageName
+	msg.LOCALE_CODES = localeCodes
+
+	-- Set English (en) as the current language by default
+	if languageCode == 'en' then
+		StoryTeller.Msg = msg
+	else
+		-- Set localized messages
+		for _, locale in pairs(localeCodes) do
+			if GetLocale() == locale then
+				StoryTeller.Msg = msg
+				break
+			end
+		end
+	end
+
+	return msg
 end
 
 --- Display a message in the console
