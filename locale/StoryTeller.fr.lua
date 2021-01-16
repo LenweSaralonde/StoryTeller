@@ -1,23 +1,25 @@
-if ( GetLocale() == "frFR" ) then
-	StoryTeller.Msg.STARTUP = "StoryTeller v{version}."
+local msg = StoryTeller.InitLocale('fr', "Français", 'frFR')
 
-	StoryTeller.Msg.PASTE_TEXT = "Coller le texte ici..."
-	StoryTeller.Msg.TELL_A_STORY = "Raconter une histoire"
-	StoryTeller.Msg.CLEAR = "Effacer"
+msg.STARTUP = "StoryTeller v{version}."
 
-	StoryTeller.Msg.READ = "Lire"
+msg.PASTE_TEXT = "Coller le texte ici…"
+msg.TELL_A_STORY = "Raconter une histoire"
+msg.CLEAR = "Effacer"
 
-	StoryTeller.Msg.EDIT = "Éditer"
-	StoryTeller.Msg.EDIT_TEXT = "Modifier le texte"
-	StoryTeller.Msg.SAVE = "Enregistrer"
-	StoryTeller.Msg.CANCEL = "Annuler"
+msg.READ = "Lire"
+msg.PREV = "<<"
+msg.NEXT = ">>"
 
-	StoryTeller.Msg.PLAYER_TOOLTIP_VERSION = "StoryTeller v{version}"
-	StoryTeller.Msg.TOOLTIP_LEFT_CLICK = "**Clic gauche** : {action}"
-	StoryTeller.Msg.TOOLTIP_RIGHT_CLICK = "**Clic droit** : {action}"
-	StoryTeller.Msg.TOOLTIP_DRAG_AND_DROP = "**Glisser-déposer** pour déplacer le bouton"
-	StoryTeller.Msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Ouvrir la fenêtre principale"
-	StoryTeller.Msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Fermer la fenêtre principale"
-	StoryTeller.Msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Ouvrir l'éditeur"
-	StoryTeller.Msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Fermer l'éditeur"
-end
+msg.EDIT = "Éditer"
+msg.EDIT_TEXT = "Modifier le texte"
+msg.SAVE = "Enregistrer"
+msg.CANCEL = "Annuler"
+
+msg.PLAYER_TOOLTIP_VERSION = "StoryTeller v{version}"
+msg.TOOLTIP_LEFT_CLICK = "**Clic gauche** : {action}"
+msg.TOOLTIP_RIGHT_CLICK = "**Clic droit** : {action}"
+msg.TOOLTIP_DRAG_AND_DROP = "**Glisser-déposer** pour déplacer le bouton"
+msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Ouvrir la fenêtre principale"
+msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Fermer la fenêtre principale"
+msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Ouvrir l'éditeur"
+msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Fermer l'éditeur"
