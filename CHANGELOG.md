@@ -1,12 +1,16 @@
 Changelog
 =========
 
-v1.1.1.6
----------
+v1.1.1.2
+--------
+* TOC update for WoW Classic patch 1.13.7
+
+v1.1.1.1
+--------
 * Updated for WoW Classic 1.13.6
 
 v1.1.1.0
----------
+--------
 * Updated for WoW Classic 1.13.5
 * Set default window position to the right
 
