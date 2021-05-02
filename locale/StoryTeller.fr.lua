@@ -1,4 +1,4 @@
-local msg = StoryTeller.InitLocale('fr', "Français", 'frFR')
+local msg = StoryTeller.InitLocale("fr", "Français", "frFR")
 
 msg.STARTUP = "StoryTeller v{version}."
 

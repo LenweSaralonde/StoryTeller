@@ -1,8 +1,14 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
 	<!-- Base localization -->
-	<Script file="StoryTeller.base.lua"/>
-	<Script file="StoryTeller.en.lua"/>
+	<Script file="StoryTeller.base.lua" />
+	<Script file="StoryTeller.en.lua" />
 	<!-- Additional localization -->
-	<Script file="StoryTeller.fr.lua"/>
-	<Script file="StoryTeller.ru.lua"/>
+	<Script file="StoryTeller.es.lua" />
+	<Script file="StoryTeller.fr.lua" />
+	<Script file="StoryTeller.pt.lua" />
+	<Script file="StoryTeller.de.lua" />
+	<Script file="StoryTeller.it.lua" />
+	<Script file="StoryTeller.ru.lua" />
+	<Script file="StoryTeller.kr.lua" />
+	<Script file="StoryTeller.zh.lua" />
 </Ui>
