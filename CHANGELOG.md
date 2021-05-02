@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.1.3
+--------
+* Improved localization to ease up collaboration.
+
 v1.1.1.2
 --------
 * TOC Interface bump for WoW 9.0.5
