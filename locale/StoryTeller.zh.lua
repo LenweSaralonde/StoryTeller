@@ -1,4 +1,4 @@
-local msg = StoryTeller.InitLocale("zh", "中文", "zhTW", "zhCN")
+local msg = StoryTeller.InitLocale("zh", "中文", "zhCN", "zhTW")
 
 -- msg.STARTUP = "StoryTeller v{version}."
 
