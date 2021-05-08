@@ -9,6 +9,7 @@
 	<Script file="StoryTeller.de.lua" />
 	<Script file="StoryTeller.it.lua" />
 	<Script file="StoryTeller.ru.lua" />
-	<Script file="StoryTeller.kr.lua" />
+	<Script file="StoryTeller.ko.lua" />
 	<Script file="StoryTeller.zh.lua" />
+	<Script file="StoryTeller.tw.lua" />
 </Ui>
