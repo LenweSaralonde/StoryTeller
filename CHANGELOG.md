@@ -7,16 +7,19 @@ v1.1.1.3
 
 v1.1.1.2
 --------
-* TOC Interface bump for WoW 9.0.5
+* TOC Interface bump for WoW Shadowlands 9.0.5
+* TOC update for WoW Classic patch 1.13.7
 
 v1.1.1.1
 --------
 * Updated for WoW Shadowlands 9.0.2
+* Updated for WoW Classic 1.13.6
 * Set default window position to the right
 
 v1.1.1.0
 --------
 * Updated for WoW Shadowlands 9.0.1 prepatch
+* Updated for WoW Classic 1.13.5
 * Set default window position to the right
 
 v1.1.0.10
@@ -29,16 +32,18 @@ v1.1.0.9
 
 v1.1.0.8
 --------
-* Align version number with Classic version
+* Updated for WoW Classic 1.13.4
 
 v1.1.0.7
 --------
-* Updated for WoW 8.3
+* Updated for WoW BfA 8.3
+* Updated for WoW Classic 1.13.3
 
 v1.1.0.6
 --------
-* Updated for WoW 8.2.5
-* HD borders!
+* Updated for WoW BfA 8.2.5
+* HD borders! (WoW BfA)
+* Updated frames behavior to match Musician's
 
 v1.1.0.5
 --------
