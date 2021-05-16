@@ -1,0 +1,16 @@
+## Interface: 90100
+## Title: StoryTeller
+## Author: LenweSaralonde
+## Version: 1.1.1.3
+## Notes: Tell long stories with your character
+## SavedVariables: StoryTeller_Settings
+
+embeds.xml
+core\StoryTeller.lua
+ui\widgets\StoryTellerWidgets.xml
+ui\StoryTellerFrame.xml
+ui\StoryTellerFrame.lua
+ui\StoryTellerEditFrame.xml
+ui\StoryTellerEditFrame.lua
+ui\StoryTellerButton.lua
+locale\locale.xml
