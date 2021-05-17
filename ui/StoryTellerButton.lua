@@ -12,17 +12,8 @@ function StoryTellerButton.Init()
 		OnLeave = StoryTellerButton.HideTooltip
 	})
 
-	-- Convert old minimap position format
-	if tonumber(StoryTeller_Settings.minimapPosition) ~= nil then
-		StoryTeller_Settings.minimap = {
-			minimapPos = StoryTeller_Settings.minimapPosition,
-			hide = false
-		}
-		StoryTeller_Settings.minimapPosition = nil
-	end
-
 	-- Create button
-	icon:Register("StoryTeller", storyTellerLDB, StoryTeller_Settings.minimap)
+	icon:Register("StoryTeller", storyTellerLDB, StoryTeller_CharacterSettings.minimap)
 end
 
 function StoryTellerButton.OnClick(self, button)

@@ -10,17 +10,22 @@ function StoryTeller.Init()
 
 	-- Init settings
 	local defaultSettings = {
+	}
+	StoryTeller_Settings = Mixin(defaultSettings, StoryTeller_Settings or {})
+
+	-- Remove obsolete settings
+	StoryTeller_Settings.mutedPlayers = nil
+	StoryTeller_Settings.minimapPosition = nil
+	StoryTeller_Settings.minimap = nil
+
+	-- Init character settings
+	local defaultCharacterSettings = {
 		minimap = {
 			minimapPos = 137,
 			hide = false
 		},
-		mutedPlayers = {}
 	}
-	if StoryTeller_Settings ~= nil then
-		local k, v
-		for k,v in pairs(StoryTeller_Settings) do defaultSettings[k] = v end
-	end
-	StoryTeller_Settings = defaultSettings
+	StoryTeller_CharacterSettings = Mixin(defaultCharacterSettings, StoryTeller_CharacterSettings or {})
 
 	-- /storyteller command
 	SlashCmdList["STORYTELLER"] = function(cmd)
