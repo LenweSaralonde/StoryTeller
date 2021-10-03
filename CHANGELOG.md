@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.1.2.2
+--------
+* Updated for WoW Classic Era 1.14 and BC Classic 2.5.2.
+* Minor fixes and improvements.
+
 v1.1.2.1
 --------
 * Dummy version bump to force refresh CurseForge's client API.
