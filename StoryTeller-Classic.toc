@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 11400
 ## Title: StoryTeller
 ## Author: LenweSaralonde
 ## Version: 1.1.2.1
@@ -8,7 +8,7 @@
 
 embeds.xml
 core\StoryTeller.lua
-ui\widgets\StoryTellerWidgets.classic.xml
+ui\widgets\StoryTellerWidgets.xml
 ui\StoryTellerFrame.xml
 ui\StoryTellerFrame.lua
 ui\StoryTellerEditFrame.xml
