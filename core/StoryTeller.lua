@@ -21,7 +21,11 @@ function StoryTeller.Init()
 	-- Init character settings
 	local defaultCharacterSettings = {
 		minimap = {
-			minimapPos = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and 160 or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC and 180 or 137,
+			minimapPos =
+				LE_EXPANSION_LEVEL_CURRENT == 0 and 160 or -- Classic Era
+				LE_EXPANSION_LEVEL_CURRENT == 1 and 180 or -- BC
+				LE_EXPANSION_LEVEL_CURRENT == 2 and 131 or -- WotLK
+				137, -- Retail
 			hide = false
 		},
 	}
