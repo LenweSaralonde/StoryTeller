@@ -2,7 +2,7 @@
 --
 function StoryTellerFrame.Init()
 	StoryTellerFrame:RegisterEvent("PLAYER_LOGIN")
-	StoryTellerFrame:SetScript("OnEvent", function(self, event, ...)
+	StoryTellerFrame:SetScript("OnEvent", function(self, event)
 		if event == "PLAYER_LOGIN" then
 			StoryTellerFrame:UnregisterEvent("PLAYER_LOGIN")
 			StoryTeller.Init()
@@ -39,7 +39,7 @@ end
 -- @param smooth (number) Smooth scroll duration
 --
 function StoryTellerFrame.HighlightCurrentLine(smooth)
-	local lineCount = table.getn(StoryTeller.text)
+	local lineCount = #StoryTeller.text
 	if lineCount > 0 and StoryTeller.text[StoryTeller.textCursor] ~= nil then
 		local line = StoryTeller.text[StoryTeller.textCursor]
 		StoryTellerFrameText:HighlightText(0, 0)
@@ -49,10 +49,8 @@ function StoryTellerFrame.HighlightCurrentLine(smooth)
 		local _, fontHeight = StoryTellerFrame.GetTextLineSize('0', boxWidth)
 		local scrollRange = StoryTellerFrameScrollFrame:GetVerticalScrollRange()
 		local scrollHeight = StoryTellerFrameScrollFrame:GetHeight()
-		local textHeight = scrollRange + scrollHeight
 		local lineY = line[4] * fontHeight
 		local lineHeight = line[5] * fontHeight
-		local visibleLines = scrollHeight / fontHeight
 		local scrollCenter = 1/3
 
 		local scrollTo = lineY - scrollHeight * scrollCenter + lineHeight / 2
@@ -155,7 +153,6 @@ end
 --- Load text
 --
 function StoryTellerFrame.Load()
-	local lines = {}
 	StoryTeller.text = {}
 	StoryTeller.textCursor = 1
 
@@ -165,14 +162,13 @@ function StoryTellerFrame.Load()
 
 	if StoryTellerFrameText:GetText() ~= StoryTeller.Msg.PASTE_TEXT then
 		local text = string.gsub(StoryTellerFrameText:GetText(), "\r", "")
-		lines = { strsplit("\n", splitText(text)) }
+		local lines = { strsplit("\n", splitText(text)) }
 
-		local i
 		local length = 0
 		local y = 0
 		local boxWidth = StoryTellerFrameText:GetWidth()
 		local _, fontHeight = StoryTellerFrame.GetTextLineSize('0', boxWidth)
-		for i = 1, table.getn(lines) do
+		for i = 1, #lines do
 			lines[i] = strtrim(lines[i])
 
 			-- Comment secure commands
@@ -184,7 +180,7 @@ function StoryTellerFrame.Load()
 			end
 
 			local lineLength = string.len(lines[i])
-			local lineWidth, lineHeight = StoryTellerFrame.GetTextLineSize(lines[i], boxWidth)
+			local _, lineHeight = StoryTellerFrame.GetTextLineSize(lines[i], boxWidth)
 			local wrapLines = max(1, floor(.5 + lineHeight / fontHeight))
 
 			if not(StoryTellerFrame.IsTextLineEmpty(lines[i])) then
@@ -266,7 +262,7 @@ end
 --- Go to previous text line
 --
 function StoryTellerFrame.Prev()
-	local lineCount = table.getn(StoryTeller.text)
+	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor > 1 then
 		StoryTeller.textCursor = StoryTeller.textCursor -  1
 		StoryTellerFrame.HighlightCurrentLine()
@@ -277,7 +273,7 @@ end
 --- Go to next text line
 --
 function StoryTellerFrame.Next()
-	local lineCount = table.getn(StoryTeller.text)
+	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor <= lineCount then
 		StoryTeller.textCursor = StoryTeller.textCursor + 1
 		StoryTellerFrame.HighlightCurrentLine()
@@ -288,7 +284,7 @@ end
 --- Read the current line
 --
 function StoryTellerFrame.Read()
-	local lineCount = table.getn(StoryTeller.text)
+	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor <= lineCount then
 		StoryTellerFrame.ReadLine(StoryTeller.text[StoryTeller.textCursor][1])
 		StoryTellerFrame.Next()
@@ -298,7 +294,7 @@ end
 --- Refresh buttons
 --
 function StoryTellerFrame.Refresh()
-	local lineCount = table.getn(StoryTeller.text)
+	local lineCount = #StoryTeller.text
 
 	if lineCount > 0 and StoryTeller.textCursor <= lineCount then
 		StoryTellerFrameNextButton:Enable()
