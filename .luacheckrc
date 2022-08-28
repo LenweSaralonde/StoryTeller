@@ -6,7 +6,7 @@ exclude_files = {
 
 ignore = {
 	-- Ignore global writes/accesses/mutations on anything prefixed with
-	-- "Musician". This is the standard prefix for all of our global frame names
+	-- "StoryTeller". This is the standard prefix for all of our global frame names
 	-- and mixins.
 	"11./^StoryTeller",
 
