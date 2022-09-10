@@ -22,7 +22,7 @@ function StoryTellerButton.OnClick(self, button)
 			StoryTellerFrame:Hide()
 		else
 			StoryTellerFrame:Show()
-			StoryTellerFrame.HighlightCurrentLine(0)
+			StoryTeller.Frame.HighlightCurrentLine(0)
 		end
 	elseif button == "RightButton" then
 		if StoryTellerEditFrame:IsVisible() then

@@ -1,44 +1,86 @@
+
+StoryTeller.Frame = {}
+
 --- Main frame init
 --
-function StoryTellerFrame.Init()
-	StoryTellerFrame:RegisterEvent("PLAYER_LOGIN")
-	StoryTellerFrame:SetScript("OnEvent", function(self, event)
-		if event == "PLAYER_LOGIN" then
-			StoryTellerFrame:UnregisterEvent("PLAYER_LOGIN")
-			StoryTeller.Init()
-			StoryTellerEditFrame.Init()
-			StoryTellerButton.Init()
-			StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
-			StoryTellerFrameTitle:SetText(StoryTeller.Msg.TELL_A_STORY)
-			StoryTellerFrameClearButton:SetText(StoryTeller.Msg.CLEAR)
-			StoryTellerFrameEditButton:SetText(StoryTeller.Msg.EDIT)
-			StoryTellerFramePrevButton:SetText(StoryTeller.Msg.PREV)
-			StoryTellerFrameNextButton:SetText(StoryTeller.Msg.NEXT)
-			StoryTellerFrameReadButton:SetText(StoryTeller.Msg.READ)
-			StoryTeller.SetButtonTextSize(StoryTellerFrameClearButton)
-			StoryTeller.SetButtonTextSize(StoryTellerFrameEditButton)
-			StoryTeller.SetButtonTextSize(StoryTellerFramePrevButton)
-			StoryTeller.SetButtonTextSize(StoryTellerFrameNextButton)
-			StoryTeller.SetButtonTextSize(StoryTellerFrameReadButton)
-			StoryTellerFrame.Clear()
-			StoryTellerFrame.noEscape = true
-		end
-	end)
-	StoryTellerFrame.StopAnimation()
-	StoryTellerFrame:SetScript("OnUpdate", StoryTellerFrame.OnUpdate)
-	StoryTellerFrameText:SetScript("OnTextChanged", StoryTellerFrame.TextChanged)
+function StoryTeller.Frame.Init()
+	StoryTellerFrame.noEscape = true
 
+	-- Main frame title
+	StoryTellerFrameTitle:SetText(StoryTeller.Msg.TELL_A_STORY)
+
+	-- Clear button
+	StoryTellerFrameClearButton:SetText(StoryTeller.Msg.CLEAR)
+	StoryTellerFrameClearButton:HookScript("OnClick", StoryTeller.Frame.Clear)
+	StoryTeller.SetButtonTextSize(StoryTellerFrameClearButton)
+
+	-- Edit button
+	StoryTellerFrameEditButton:SetText(StoryTeller.Msg.EDIT)
+	StoryTeller.SetButtonTextSize(StoryTellerFrameEditButton)
+	StoryTellerFrameEditButton:HookScript("OnClick", StoryTeller.Frame.Edit)
+
+	-- Previous button
+	StoryTellerFramePrevButton:SetText(StoryTeller.Msg.PREV)
+	StoryTeller.SetButtonTextSize(StoryTellerFramePrevButton)
+	StoryTellerFramePrevButton:HookScript("OnClick", StoryTeller.Frame.Prev)
+
+	-- Next button
+	StoryTellerFrameNextButton:SetText(StoryTeller.Msg.NEXT)
+	StoryTeller.SetButtonTextSize(StoryTellerFrameNextButton)
+	StoryTellerFrameNextButton:HookScript("OnClick", StoryTeller.Frame.Next)
+
+	-- Read button
+	StoryTellerFrameReadButton:SetText(StoryTeller.Msg.READ)
+	StoryTeller.SetButtonTextSize(StoryTellerFrameReadButton)
+	StoryTellerFrameReadButton:HookScript("OnClick", StoryTeller.Frame.Read)
+
+	-- Frame text
+	ScrollingEdit_OnCursorChanged(StoryTellerFrameText, 0, 0, 0, 0)
+	StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
 	-- Create text highlight texture (workaround to text select bug introduced in WoW 8.2)
 	StoryTellerFrameText.highlightTexture = StoryTellerFrameText:CreateTexture(nil, "BACKGROUND")
 	StoryTellerFrameText.highlightTexture:SetColorTexture(1, 1, 1, .25)
 	StoryTellerFrameText.highlightTexture:SetPoint("LEFT")
 	StoryTellerFrameText.highlightTexture:SetPoint("RIGHT")
+	StoryTellerFrameText:SetScript("OnTextChanged", StoryTeller.Frame.TextChanged)
+	StoryTellerFrameText:SetScript("OnEditFocusGained", function()
+		StoryTellerFrameText:HighlightText(0)
+	end)
+	StoryTellerFrameText:SetScript("OnCursorChanged", ScrollingEdit_OnCursorChanged)
+	StoryTellerFrameText:SetScript("OnUpdate", function(self, elapsed)
+		ScrollingEdit_OnUpdate(self, elapsed, self:GetParent())
+	end)
+	StoryTellerFrameText:SetScript("OnEscapePressed", function()
+		StoryTellerFrameText:ClearFocus()
+		StoryTellerFrameText:ClearHighlightText()
+	end)
+
+	-- Scroll frame
+	StoryTellerFrameScrollFrame:SetScript("OnMouseUp", function()
+		if not(StoryTellerFrameText:HasFocus()) then
+			StoryTellerFrameText:SetFocus()
+			StoryTellerFrameText:HighlightText(0)
+		end
+	end)
+
+	-- Register events
+	StoryTellerFrame:RegisterEvent("PLAYER_LOGIN")
+	StoryTellerFrame:SetScript("OnUpdate", StoryTeller.Frame.OnUpdate)
+	StoryTellerFrame:SetScript("OnEvent", function(self, event)
+		if event == "PLAYER_LOGIN" then
+			StoryTellerFrame:UnregisterEvent("PLAYER_LOGIN")
+			StoryTeller.Init()
+			StoryTellerButton.Init()
+			StoryTeller.Frame.Clear()
+		end
+	end)
+	StoryTeller.Frame.StopAnimation()
 end
 
 --- Highlight the current line in the edit box
 -- @param smooth (number) Smooth scroll duration
 --
-function StoryTellerFrame.HighlightCurrentLine(smooth)
+function StoryTeller.Frame.HighlightCurrentLine(smooth)
 	local lineCount = #StoryTeller.text
 	if lineCount > 0 and StoryTeller.text[StoryTeller.textCursor] ~= nil then
 		local line = StoryTeller.text[StoryTeller.textCursor]
@@ -46,7 +88,7 @@ function StoryTellerFrame.HighlightCurrentLine(smooth)
 
 		-- Adjust scrolling
 		local boxWidth = StoryTellerFrameText:GetWidth()
-		local _, fontHeight = StoryTellerFrame.GetTextLineSize('0', boxWidth)
+		local _, fontHeight = StoryTeller.Frame.GetTextLineSize('0', boxWidth)
 		local scrollRange = StoryTellerFrameScrollFrame:GetVerticalScrollRange()
 		local scrollHeight = StoryTellerFrameScrollFrame:GetHeight()
 		local lineY = line[4] * fontHeight
@@ -54,7 +96,7 @@ function StoryTellerFrame.HighlightCurrentLine(smooth)
 		local scrollCenter = 1/3
 
 		local scrollTo = lineY - scrollHeight * scrollCenter + lineHeight / 2
-		StoryTellerFrame.ScrollTo(min(scrollRange, max(0, min(lineY, scrollTo))), smooth)
+		StoryTeller.Frame.ScrollTo(min(scrollRange, max(0, min(lineY, scrollTo))), smooth)
 
 		-- Highlight current line
 		StoryTellerFrameText.highlightTexture:Show()
@@ -152,7 +194,7 @@ end
 
 --- Load text
 --
-function StoryTellerFrame.Load()
+function StoryTeller.Frame.Load()
 	StoryTeller.text = {}
 	StoryTeller.textCursor = 1
 
@@ -167,7 +209,7 @@ function StoryTellerFrame.Load()
 		local length = 0
 		local y = 0
 		local boxWidth = StoryTellerFrameText:GetWidth()
-		local _, fontHeight = StoryTellerFrame.GetTextLineSize('0', boxWidth)
+		local _, fontHeight = StoryTeller.Frame.GetTextLineSize('0', boxWidth)
 		for i = 1, #lines do
 			lines[i] = strtrim(lines[i])
 
@@ -180,10 +222,10 @@ function StoryTellerFrame.Load()
 			end
 
 			local lineLength = string.len(lines[i])
-			local _, lineHeight = StoryTellerFrame.GetTextLineSize(lines[i], boxWidth)
+			local _, lineHeight = StoryTeller.Frame.GetTextLineSize(lines[i], boxWidth)
 			local wrapLines = max(1, floor(.5 + lineHeight / fontHeight))
 
-			if not(StoryTellerFrame.IsTextLineEmpty(lines[i])) then
+			if not(StoryTeller.Frame.IsTextLineEmpty(lines[i])) then
 				table.insert(StoryTeller.text, { lines[i], length, length + lineLength, y, wrapLines })
 			end
 
@@ -195,31 +237,31 @@ function StoryTellerFrame.Load()
 		StoryTellerFrameText:SetText(newText)
 		StoryTellerEditFrameText:SetText(newText)
 		StoryTellerEditFrameScrollFrame:SetVerticalScroll(0)
-		StoryTellerFrame.HighlightCurrentLine(0)
+		StoryTeller.Frame.HighlightCurrentLine(0)
 	else
-		StoryTellerFrame.ScrollTo(0, 0)
+		StoryTeller.Frame.ScrollTo(0, 0)
 		StoryTellerEditFrameText:SetText("")
 		StoryTellerEditFrameScrollFrame:SetVerticalScroll(0)
 	end
 
-	StoryTellerFrame.Refresh()
+	StoryTeller.Frame.Refresh()
 end
 
 --- Reload text when changed
 --
-function StoryTellerFrame.TextChanged(self, isUserInput)
+function StoryTeller.Frame.TextChanged(self, isUserInput)
 	ScrollingEdit_OnTextChanged(self, self:GetParent())
 	if isUserInput then
-		StoryTellerFrame.Load()
+		StoryTeller.Frame.Load()
 	end
-	StoryTellerFrame.HighlightCurrentLine(0)
+	StoryTeller.Frame.HighlightCurrentLine(0)
 end
 
 --- Clear text
 --
-function StoryTellerFrame.Clear()
+function StoryTeller.Frame.Clear()
 	StoryTellerFrameText:SetText(StoryTeller.Msg.PASTE_TEXT)
-	StoryTellerFrame.Load()
+	StoryTeller.Frame.Load()
 	StoryTellerFrameText:SetFocus()
 	StoryTellerFrameText:HighlightText(0)
 	StoryTellerFrameText.highlightTexture:Hide()
@@ -227,7 +269,7 @@ end
 
 --- Open edit frame
 --
-function StoryTellerFrame.Edit()
+function StoryTeller.Frame.Edit()
 	if not(StoryTellerEditFrame:IsVisible()) then
 		StoryTellerEditFrame:Show()
 		StoryTellerEditFrameText:SetFocus()
@@ -237,7 +279,7 @@ end
 --- Return true if the provided text line is blank or is a comment
 -- @param text (string)
 -- @return (boolean)
-function StoryTellerFrame.IsTextLineEmpty(text)
+function StoryTeller.Frame.IsTextLineEmpty(text)
 	local line = strtrim(text)
 	return line == "" or string.find(line, "%#") == 1 or string.find(line, "%-%-") == 1 or string.find(line, "%/%/") == 1 or string.find(line, "REM%s") == 1
 end
@@ -246,7 +288,7 @@ end
 -- @param text (string)
 -- @param maxWidth (number)
 -- @return (number), (number)
-function StoryTellerFrame.GetTextLineSize(text, maxWidth)
+function StoryTeller.Frame.GetTextLineSize(text, maxWidth)
 	-- Create a clone of the FontString for measurements
 	if StoryTellerFrame.fsClone == nil then
 		local fs = StoryTellerFrameText:GetRegions()
@@ -261,39 +303,39 @@ end
 
 --- Go to previous text line
 --
-function StoryTellerFrame.Prev()
+function StoryTeller.Frame.Prev()
 	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor > 1 then
 		StoryTeller.textCursor = StoryTeller.textCursor -  1
-		StoryTellerFrame.HighlightCurrentLine()
-		StoryTellerFrame.Refresh()
+		StoryTeller.Frame.HighlightCurrentLine()
+		StoryTeller.Frame.Refresh()
 	end
 end
 
 --- Go to next text line
 --
-function StoryTellerFrame.Next()
+function StoryTeller.Frame.Next()
 	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor <= lineCount then
 		StoryTeller.textCursor = StoryTeller.textCursor + 1
-		StoryTellerFrame.HighlightCurrentLine()
-		StoryTellerFrame.Refresh()
+		StoryTeller.Frame.HighlightCurrentLine()
+		StoryTeller.Frame.Refresh()
 	end
 end
 
 --- Read the current line
 --
-function StoryTellerFrame.Read()
+function StoryTeller.Frame.Read()
 	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor <= lineCount then
-		StoryTellerFrame.ReadLine(StoryTeller.text[StoryTeller.textCursor][1])
-		StoryTellerFrame.Next()
+		StoryTeller.Frame.ReadLine(StoryTeller.text[StoryTeller.textCursor][1])
+		StoryTeller.Frame.Next()
 	end
 end
 
 --- Refresh buttons
 --
-function StoryTellerFrame.Refresh()
+function StoryTeller.Frame.Refresh()
 	local lineCount = #StoryTeller.text
 
 	if lineCount > 0 and StoryTeller.textCursor <= lineCount then
@@ -318,7 +360,7 @@ end
 --- Update frame
 -- @param self (Frame)
 -- @param elapsed (number
-function StoryTellerFrame.OnUpdate(self, elapsed)
+function StoryTeller.Frame.OnUpdate(self, elapsed)
 	if StoryTellerFrame.animateScrollDuration ~= 0 and StoryTellerFrame.animateScrollFrom ~= StoryTellerFrame.animateScrollTo then
 
 		StoryTellerFrame.animateScrollTime = StoryTellerFrame.animateScrollTime + elapsed
@@ -330,7 +372,7 @@ function StoryTellerFrame.OnUpdate(self, elapsed)
 		StoryTellerFrameScrollFrame:SetVerticalScroll(scrollTo)
 
 		if progression == 1 then
-			StoryTellerFrame.StopAnimation()
+			StoryTeller.Frame.StopAnimation()
 		end
 	end
 end
@@ -338,7 +380,7 @@ end
 --- Smooth scroll to position
 -- @param to (number)
 -- @param duration (number)
-function StoryTellerFrame.ScrollTo(to, duration)
+function StoryTeller.Frame.ScrollTo(to, duration)
 	if duration == nil then
 		duration = .25
 	end
@@ -354,7 +396,7 @@ end
 
 --- Stop smooth scroll animation
 --
-function StoryTellerFrame.StopAnimation()
+function StoryTeller.Frame.StopAnimation()
 	StoryTellerFrame.animateScrollFrom = 0
 	StoryTellerFrame.animateScrollTo = 0
 	StoryTellerFrame.animateScrollTime = 0
@@ -363,7 +405,7 @@ end
 
 --- Read text line or macro
 --
-function StoryTellerFrame.ReadLine(text)
+function StoryTeller.Frame.ReadLine(text)
 	text = strtrim(text)
 	local editBox = ChatFrame1EditBox
 	editBox:SetText(text)
@@ -371,5 +413,12 @@ function StoryTellerFrame.ReadLine(text)
 	ChatEdit_OnEnterPressed(editBox)
 end
 
--- Init main
-StoryTellerFrame.Init()
+-- Main mixin
+
+StoryTellerFrameMixin = {}
+
+--- OnLoad
+--
+function StoryTellerFrameMixin:OnLoad()
+	StoryTeller.Frame.Init()
+end

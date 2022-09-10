@@ -1,18 +1,11 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
 
-	<Frame name="StoryTellerFrame" inherits="StoryTellerDialogTemplate" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true" clampedtoscreen="true">
+	<Script file="StoryTellerFrame.lua" />
+
+	<Frame name="StoryTellerFrame" inherits="StoryTellerDialogTemplate" mixin="StoryTellerFrameMixin" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true" clampedtoscreen="true">
 
 		<Scripts>
-			<OnLoad>self:RegisterForDrag("LeftButton")</OnLoad>
-			<OnDragStart>self:StartMoving()</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
-			<OnShow>
-				StoryTellerFrame.HighlightCurrentLine()
-				PlaySound(SOUNDKIT.IG_QUEST_LIST_OPEN)
-			</OnShow>
-			<OnHide>
-				PlaySound(SOUNDKIT.IG_QUEST_LIST_CLOSE)
-			</OnHide>
+			<OnLoad inherit="prepend" method="OnLoad" />
 		</Scripts>
 
 		<Size x="320" y="160" />
@@ -42,11 +35,6 @@
 				<Anchors>
 					<Anchor point="TOPRIGHT" x="-10" y="-10" relativePoint="TOPRIGHT" />
 				</Anchors>
-				<Scripts>
-					<OnClick>
-						StoryTellerFrame.Clear()
-					</OnClick>
-				</Scripts>
 			</Button>
 
 			<Button name="StoryTellerFrameEditButton" inherits="UIPanelButtonTemplate" level="OVERLAY">
@@ -54,11 +42,6 @@
 				<Anchors>
 					<Anchor point="TOPLEFT" x="10" y="-10" relativePoint="TOPLEFT" />
 				</Anchors>
-				<Scripts>
-					<OnClick>
-						StoryTellerFrame.Edit()
-					</OnClick>
-				</Scripts>
 			</Button>
 
 			<Button name="StoryTellerFramePrevButton" inherits="UIPanelButtonTemplate">
@@ -66,11 +49,6 @@
 				<Anchors>
 					<Anchor point="BOTTOMLEFT" x="10" y="10" relativePoint="BOTTOMLEFT" />
 				</Anchors>
-				<Scripts>
-					<OnClick>
-						StoryTellerFrame.Prev()
-					</OnClick>
-				</Scripts>
 			</Button>
 
 			<Button name="StoryTellerFrameReadButton" inherits="UIPanelButtonTemplate">
@@ -78,11 +56,6 @@
 				<Anchors>
 					<Anchor point="BOTTOM" x="0" y="10" relativePoint="BOTTOM" />
 				</Anchors>
-				<Scripts>
-					<OnClick>
-						StoryTellerFrame.Read()
-					</OnClick>
-				</Scripts>
 			</Button>
 
 			<Button name="StoryTellerFrameNextButton" inherits="UIPanelButtonTemplate">
@@ -90,11 +63,6 @@
 				<Anchors>
 					<Anchor point="BOTTOMRIGHT" x="-10" y="10" relativePoint="BOTTOMRIGHT" />
 				</Anchors>
-				<Scripts>
-					<OnClick>
-						StoryTellerFrame.Next()
-					</OnClick>
-				</Scripts>
 			</Button>
 
 			<ScrollFrame name="StoryTellerFrameScrollFrame" inherits="UIPanelScrollFrameTemplate">
@@ -103,33 +71,9 @@
 					<Anchor point="TOPLEFT" x="15" y="-35" relativePoint="TOPLEFT" />
 				</Anchors>
 
-				<Scripts>
-					<OnMouseUp>
-						if not(StoryTellerFrameText:HasFocus()) then
-							StoryTellerFrameText:SetFocus()
-							StoryTellerFrameText:HighlightText(0)
-						end
-					</OnMouseUp>
-				</Scripts>
-
 				<ScrollChild>
 					<EditBox name="StoryTellerFrameText" multiLine="true" autoFocus="false" countInvisibleLetters="false">
 						<Size x="268" y="90"/>
-
-						<Scripts>
-							<OnEditFocusGained>
-								StoryTellerFrameText:HighlightText(0)
-							</OnEditFocusGained>
-							<OnLoad>
-								ScrollingEdit_OnCursorChanged(self, 0, 0, 0, 0)
-							</OnLoad>
-							<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
-							<OnUpdate>
-								ScrollingEdit_OnUpdate(self, elapsed, self:GetParent())
-							</OnUpdate>
-							<OnEscapePressed>StoryTellerFrameText:ClearFocus()</OnEscapePressed>
-						</Scripts>
-
 						<FontString inherits="GameFontHighlightSmall"/>
 					</EditBox>
 				</ScrollChild>

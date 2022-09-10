@@ -62,6 +62,9 @@ stds.wow = {
 		"ScrollingEdit_OnTextChanged",
 		"ChatEdit_ParseText",
 		"ChatEdit_OnEnterPressed",
+		"PlaySound",
+		"ScrollingEdit_OnCursorChanged",
+		"ScrollingEdit_OnUpdate",
 
 		-- Global Mixins and UI Objects
 		DEFAULT_CHAT_FRAME = {
@@ -77,9 +80,18 @@ stds.wow = {
 				"Hide",
 			}
 		},
+		SOUNDKIT = {
+			fields = {
+				"IG_QUEST_LIST_OPEN",
+				"IG_QUEST_LIST_CLOSE"
+			}
+		},
+
 		"ChatFrame1EditBox",
 
 		-- Global Constants
+		"TOOLTIP_DEFAULT_COLOR",
+		"TOOLTIP_DEFAULT_BACKGROUND_COLOR",
 		"LE_EXPANSION_LEVEL_CURRENT",
 		"NORMAL_FONT_COLOR",
 	},

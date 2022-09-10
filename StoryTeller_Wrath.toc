@@ -7,11 +7,13 @@
 ## SavedVariablesPerCharacter: StoryTeller_CharacterSettings
 
 embeds.xml
+
 core\StoryTeller.lua
-ui\widgets\StoryTellerWidgets.xml
-ui\StoryTellerFrame.xml
-ui\StoryTellerFrame.lua
-ui\StoryTellerEditFrame.xml
-ui\StoryTellerEditFrame.lua
-ui\StoryTellerButton.lua
+
 locale\locale.xml
+
+ui\widgets\StoryTellerWidgets.xml
+
+ui\StoryTellerFrame.xml
+ui\StoryTellerEditFrame.xml
+ui\StoryTellerButton.lua

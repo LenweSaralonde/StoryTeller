@@ -1,5 +1,6 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
 	<!-- Dialog Window -->
+	<Script file="StoryTellerDialogTemplate.lua" />
 	<Frame name="StoryTellerDialogTemplate" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true" clampedtoscreen="true" frameStrata="DIALOG" virtual="true">
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -59,23 +60,12 @@
 			</Layer>
 		</Layers>
 		<Scripts>
-			<OnLoad>self:RegisterForDrag("LeftButton")</OnLoad>
-			<OnDragStart>self:StartMoving()</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
-			<OnKeyDown inherit="append">
-				if self:IsShown() and key == "ESCAPE" and not(self.noEscape) then
-					self:SetPropagateKeyboardInput(false)
-					self:Hide()
-				else
-					self:SetPropagateKeyboardInput(true)
-				end
-			</OnKeyDown>
-			<OnShow>
-				PlaySound(SOUNDKIT.IG_QUEST_LIST_OPEN)
-			</OnShow>
-			<OnHide>
-				PlaySound(SOUNDKIT.IG_QUEST_LIST_CLOSE)
-			</OnHide>
+			<OnLoad function="StoryTellerDialogTemplate_OnLoad" />
+			<OnDragStart function="StoryTellerDialogTemplate_OnDragStart" />
+			<OnDragStop function="StoryTellerDialogTemplate_OnDragStop" />
+			<OnKeyDown inherit="append" function="StoryTellerDialogTemplate_OnKeyDown" />
+			<OnShow function="StoryTellerDialogTemplate_OnShow" />
+			<OnHide function="StoryTellerDialogTemplate_OnHide" />
 		</Scripts>
 		<Frames>
 			<Button name="$parentCloseButton" parentKey="close" inherits="UIPanelCloseButton">
