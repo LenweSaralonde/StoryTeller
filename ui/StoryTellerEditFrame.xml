@@ -29,7 +29,7 @@
 		</Layers>
 
 		<Frames>
-			<Button name="StoryTellerEditFrameClearButton" inherits="UIPanelButtonTemplate" level="OVERLAY">
+			<Button name="StoryTellerEditFrameClearButton" inherits="UIPanelButtonTemplate">
 				<Size x="60" y="20" />
 				<Anchors>
 					<Anchor point="TOPRIGHT" x="-10" y="-10" relativePoint="TOPRIGHT" />

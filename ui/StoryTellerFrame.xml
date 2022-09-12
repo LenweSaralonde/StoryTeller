@@ -30,14 +30,14 @@
 
 		<Frames>
 
-			<Button name="StoryTellerFrameClearButton" inherits="UIPanelButtonTemplate" level="OVERLAY">
+			<Button name="StoryTellerFrameClearButton" inherits="UIPanelButtonTemplate">
 				<Size x="60" y="20" />
 				<Anchors>
 					<Anchor point="TOPRIGHT" x="-10" y="-10" relativePoint="TOPRIGHT" />
 				</Anchors>
 			</Button>
 
-			<Button name="StoryTellerFrameEditButton" inherits="UIPanelButtonTemplate" level="OVERLAY">
+			<Button name="StoryTellerFrameEditButton" inherits="UIPanelButtonTemplate">
 				<Size x="60" y="20" />
 				<Anchors>
 					<Anchor point="TOPLEFT" x="10" y="-10" relativePoint="TOPLEFT" />
