@@ -1,4 +1,3 @@
-
 StoryTeller.Frame = {}
 
 --- Main frame init
@@ -57,7 +56,7 @@ function StoryTeller.Frame.Init()
 
 	-- Scroll frame
 	StoryTellerFrameScrollFrame:SetScript("OnMouseUp", function()
-		if not(StoryTellerFrameText:HasFocus()) then
+		if not StoryTellerFrameText:HasFocus() then
 			StoryTellerFrameText:SetFocus()
 			StoryTellerFrameText:HighlightText(0)
 		end
@@ -93,7 +92,7 @@ function StoryTeller.Frame.HighlightCurrentLine(smooth)
 		local scrollHeight = StoryTellerFrameScrollFrame:GetHeight()
 		local lineY = line[4] * fontHeight
 		local lineHeight = line[5] * fontHeight
-		local scrollCenter = 1/3
+		local scrollCenter = 1 / 3
 
 		local scrollTo = lineY - scrollHeight * scrollCenter + lineHeight / 2
 		StoryTeller.Frame.ScrollTo(min(scrollRange, max(0, min(lineY, scrollTo))), smooth)
@@ -123,7 +122,7 @@ local function splitText(text, level)
 		return text
 	end
 
-	if not(level) then
+	if not level then
 		level = 0
 	end
 
@@ -225,7 +224,7 @@ function StoryTeller.Frame.Load()
 			local _, lineHeight = StoryTeller.Frame.GetTextLineSize(lines[i], boxWidth)
 			local wrapLines = max(1, floor(.5 + lineHeight / fontHeight))
 
-			if not(StoryTeller.Frame.IsTextLineEmpty(lines[i])) then
+			if not StoryTeller.Frame.IsTextLineEmpty(lines[i]) then
 				table.insert(StoryTeller.text, { lines[i], length, length + lineLength, y, wrapLines })
 			end
 
@@ -270,7 +269,7 @@ end
 --- Open edit frame
 --
 function StoryTeller.Frame.Edit()
-	if not(StoryTellerEditFrame:IsVisible()) then
+	if not StoryTellerEditFrame:IsVisible() then
 		StoryTellerEditFrame:Show()
 		StoryTellerEditFrameText:SetFocus()
 	end
@@ -281,7 +280,11 @@ end
 -- @return (boolean)
 function StoryTeller.Frame.IsTextLineEmpty(text)
 	local line = strtrim(text)
-	return line == "" or string.find(line, "%#") == 1 or string.find(line, "%-%-") == 1 or string.find(line, "%/%/") == 1 or string.find(line, "REM%s") == 1
+	return line == "" or
+		string.find(line, "%#") == 1 or
+		string.find(line, "%-%-") == 1 or
+		string.find(line, "%/%/") == 1 or
+		string.find(line, "REM%s") == 1
 end
 
 --- Returns the width and height in pixels of the text line
@@ -306,7 +309,7 @@ end
 function StoryTeller.Frame.Prev()
 	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor > 1 then
-		StoryTeller.textCursor = StoryTeller.textCursor -  1
+		StoryTeller.textCursor = StoryTeller.textCursor - 1
 		StoryTeller.Frame.HighlightCurrentLine()
 		StoryTeller.Frame.Refresh()
 	end
@@ -361,7 +364,8 @@ end
 -- @param self (Frame)
 -- @param elapsed (number
 function StoryTeller.Frame.OnUpdate(self, elapsed)
-	if StoryTellerFrame.animateScrollDuration ~= 0 and StoryTellerFrame.animateScrollFrom ~= StoryTellerFrame.animateScrollTo then
+	if StoryTellerFrame.animateScrollDuration ~= 0 and
+		StoryTellerFrame.animateScrollFrom ~= StoryTellerFrame.animateScrollTo then
 
 		StoryTellerFrame.animateScrollTime = StoryTellerFrame.animateScrollTime + elapsed
 

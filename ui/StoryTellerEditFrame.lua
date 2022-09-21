@@ -1,4 +1,3 @@
-
 StoryTeller.EditFrame = {}
 
 function StoryTeller.EditFrame.Init()
@@ -35,7 +34,7 @@ function StoryTeller.EditFrame.Init()
 
 	-- Scroll frame
 	StoryTellerEditFrameScrollFrame:SetScript("OnMouseUp", function()
-		if not(StoryTellerEditFrameText:HasFocus()) then
+		if not StoryTellerEditFrameText:HasFocus() then
 			StoryTellerEditFrameText:SetFocus()
 		end
 	end)

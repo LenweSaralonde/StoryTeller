@@ -1,4 +1,6 @@
-<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.blizzard.com/wow/ui/">
 
 	<Script file="StoryTellerFrame.lua" />
 
@@ -20,7 +22,7 @@
 					<Anchors>
 						<Anchor point="TOP">
 							<Offset>
-								<AbsDimension x="0" y="-15"/>
+								<AbsDimension x="0" y="-15" />
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -73,8 +75,8 @@
 
 				<ScrollChild>
 					<EditBox name="StoryTellerFrameText" multiLine="true" autoFocus="false" countInvisibleLetters="false">
-						<Size x="268" y="90"/>
-						<FontString inherits="GameFontHighlightSmall"/>
+						<Size x="268" y="90" />
+						<FontString inherits="GameFontHighlightSmall" />
 					</EditBox>
 				</ScrollChild>
 			</ScrollFrame>
