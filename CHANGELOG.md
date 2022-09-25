@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.4.1
+--------
+* Code cleanup.
+
 v1.1.4.0
 --------
 * Added WoW 10.0 support.
