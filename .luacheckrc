@@ -2,12 +2,11 @@ max_line_length = false
 
 exclude_files = {
 	"lib",
-};
+}
 
 ignore = {
-	-- Ignore global writes/accesses/mutations on anything prefixed with
-	-- "StoryTeller". This is the standard prefix for all of our global frame names
-	-- and mixins.
+	-- Ignore global writes/accesses/mutations on anything prefixed with the add-on name.
+	-- This is the standard prefix for all of our global frame names and mixins.
 	"11./^StoryTeller",
 
 	-- Ignore unused self. This would popup for Mixins and Objects
@@ -15,7 +14,7 @@ ignore = {
 
 	-- Ignore unused event. This would popup for event handlers
 	"212/event",
-};
+}
 
 globals = {
 	"StoryTeller",
@@ -23,16 +22,16 @@ globals = {
 	-- Globals
 
 	-- AddOn Overrides
-};
+}
 
 read_globals = {
 	-- Libraries
 	"LibStub",
 
 	-- 3rd party add-ons
-};
+}
 
-std = "lua51+wow";
+std = "lua51+wow"
 
 stds.wow = {
 	-- Globals that we mutate.
@@ -95,4 +94,4 @@ stds.wow = {
 		"LE_EXPANSION_LEVEL_CURRENT",
 		"NORMAL_FONT_COLOR",
 	},
-};
+}
