@@ -1,6 +1,12 @@
 Changelog
 =========
 
+v1.1.5.1
+--------
+* Fixed minimap button gap.
+* Added StoryTeller button to the add-on compartment frame.
+* Adjusted close buttons size.
+
 v1.1.5.0
 --------
 * TOC bump for WoW patch 10.0.0.
