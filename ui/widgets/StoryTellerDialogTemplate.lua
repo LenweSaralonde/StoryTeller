@@ -5,6 +5,12 @@
 --
 function StoryTellerDialogTemplate_OnLoad(self)
 	self:RegisterForDrag("LeftButton")
+
+	-- Slightly rescale the close button on Retail
+	if LE_EXPANSION_LEVEL_CURRENT >= 9 then
+		self.close:SetScale(.75)
+		self.close:SetPoint("CENTER", self, "TOPRIGHT", -10, -10)
+	end
 end
 
 --- OnDragStart
