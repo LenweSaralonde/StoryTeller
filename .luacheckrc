@@ -85,6 +85,11 @@ stds.wow = {
 				"IG_QUEST_LIST_CLOSE"
 			}
 		},
+		AddonCompartmentFrame = {
+			fields = {
+				"RegisterAddon"
+			}
+		},
 
 		"ChatFrame1EditBox",
 
