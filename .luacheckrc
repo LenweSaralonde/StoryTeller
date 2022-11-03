@@ -52,9 +52,13 @@ stds.wow = {
 		"max",
 		"floor",
 		"ceil",
+		"tinsert",
+		"tremove",
+		"tIndexOf",
 
 		-- Global Functions
 		"Mixin",
+		"hooksecurefunc",
 		"GetAddOnMetadata",
 		"GetLocale",
 		"IsSecureCmd",
@@ -64,6 +68,10 @@ stds.wow = {
 		"PlaySound",
 		"ScrollingEdit_OnCursorChanged",
 		"ScrollingEdit_OnUpdate",
+		"GameTooltip_SetTitle",
+		"InterfaceOptions_AddCategory",
+		"InterfaceOptionsFrame_Show",
+		"InterfaceOptionsFrame_OpenToCategory",
 
 		-- Global Mixins and UI Objects
 		DEFAULT_CHAT_FRAME = {
@@ -87,7 +95,9 @@ stds.wow = {
 		},
 		AddonCompartmentFrame = {
 			fields = {
-				"RegisterAddon"
+				"RegisterAddon",
+				"registeredAddons",
+				"UpdateDisplay"
 			}
 		},
 
@@ -98,5 +108,7 @@ stds.wow = {
 		"TOOLTIP_DEFAULT_BACKGROUND_COLOR",
 		"LE_EXPANSION_LEVEL_CURRENT",
 		"NORMAL_FONT_COLOR",
+		"GRAY_FONT_COLOR",
+		"SOUNDKIT",
 	},
 }

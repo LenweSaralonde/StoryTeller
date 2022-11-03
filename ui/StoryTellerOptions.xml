@@ -1,0 +1,71 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.blizzard.com/wow/ui/">
+
+	<Script file="StoryTellerOptions.lua" />
+
+	<Frame name="StoryTellerOptionsPanelContainer" hidden="true">
+		<Frames>
+			<ScrollFrame name="StoryTellerOptionsPanelScrollFrame" inherits="UIPanelScrollFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" y="-4" />
+					<Anchor point="BOTTOMRIGHT" x="-27" y="4" />
+				</Anchors>
+				<ScrollChild>
+					<Frame name="StoryTellerOptionsPanel">
+						<Anchors>
+							<Anchor point="TOPLEFT" />
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="$parentTitle" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
+									<Anchors>
+										<Anchor point="TOPLEFT" x="16" y="-16" />
+									</Anchors>
+								</FontString>
+								<FontString name="$parentSubText" inherits="GameFontHighlight" nonspacewrap="true" maxLines="3" justifyH="LEFT" justifyV="TOP">
+									<Anchors>
+										<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT" x="0" y="-8" />
+										<Anchor point="RIGHT" x="-32" y="0" />
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Frame name="$parentShortcut">
+								<Size>
+									<AbsDimension x="580" y="48" />
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="$parentSubText" relativePoint="BOTTOMLEFT" />
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="$parentTitle" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
+											<Anchors>
+												<Anchor point="TOPLEFT" />
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+								<Frames>
+									<CheckButton name="$parentMinimap" inherits="StoryTellerOptionCheckButtonTemplate">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT" x="0" y="-10" />
+										</Anchors>
+									</CheckButton>
+									<CheckButton name="$parentMenu" inherits="StoryTellerOptionCheckButtonTemplate">
+										<Anchors>
+											<Anchor point="LEFT" relativeTo="$parentMinimapText" relativePoint="RIGHT" x="10" y="0" />
+											<Anchor point="TOP" relativeTo="$parentMinimap" relativePoint="TOP" x="0" y="0" />
+										</Anchors>
+									</CheckButton>
+								</Frames>
+							</Frame>
+						</Frames>
+					</Frame>
+				</ScrollChild>
+			</ScrollFrame>
+		</Frames>
+	</Frame>
+</Ui>

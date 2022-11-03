@@ -23,3 +23,9 @@ msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Mostrar janela principal"
 msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Esconder a janela principal"
 msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Editor aberto"
 msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Fechar editor"
+
+--- Add-on options
+msg.OPTIONS_TITLE = "StoryTeller"
+msg.OPTIONS_CATEGORY_SHORTCUTS = "Atalhos"
+msg.OPTIONS_SHORTCUT_MINIMAP = "Botão Minimapa"
+msg.OPTIONS_SHORTCUT_ADDON_MENU = "Menu Minimapa"

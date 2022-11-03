@@ -17,3 +17,4 @@ ui\widgets\StoryTellerWidgets.xml
 ui\StoryTellerFrame.xml
 ui\StoryTellerEditFrame.xml
 ui\StoryTellerButton.lua
+ui\StoryTellerOptions.xml

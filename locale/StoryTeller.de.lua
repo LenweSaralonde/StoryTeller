@@ -23,3 +23,9 @@ msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Hauptfenster anzeigen"
 msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Hauptfenster ausblenden"
 msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Editor öffnen"
 msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Editor schließen"
+
+--- Add-on options
+msg.OPTIONS_TITLE = "StoryTeller"
+msg.OPTIONS_CATEGORY_SHORTCUTS = "Verknüpfungen"
+msg.OPTIONS_SHORTCUT_MINIMAP = "Minikarte-Schaltfläche"
+msg.OPTIONS_SHORTCUT_ADDON_MENU = "Minikarte-Menü"

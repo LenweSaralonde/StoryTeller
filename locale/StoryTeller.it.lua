@@ -23,3 +23,9 @@ msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Mostra la finestra principale"
 msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Nascondi la finestra principale"
 msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Apri editor"
 msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Chiudi editor"
+
+--- Add-on options
+msg.OPTIONS_TITLE = "StoryTeller"
+msg.OPTIONS_CATEGORY_SHORTCUTS = "Scorciatoie"
+msg.OPTIONS_SHORTCUT_MINIMAP = "Pulsante Minimappa"
+msg.OPTIONS_SHORTCUT_ADDON_MENU = "Menu Minimappa"

@@ -5,6 +5,8 @@ local icon = LibStub("LibDBIcon-1.0")
 local BUTTON_ICON = "Interface\\Icons\\Inv_misc_book_08"
 local BUTTON_TEXT = "StoryTeller"
 
+local addOnMenuInfo
+
 function StoryTellerButton.Init()
 	local storyTellerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("StoryTeller", {
 		type = "launcher",
@@ -18,9 +20,29 @@ function StoryTellerButton.Init()
 	-- Create button
 	icon:Register("StoryTeller", storyTellerLDB, StoryTeller_CharacterSettings.minimap)
 
+	-- Create addon menu info
+	addOnMenuInfo = {
+		notCheckable = true,
+		text = BUTTON_TEXT,
+		icon = BUTTON_ICON,
+		registerForRightClick = true,
+		func = function(self, _, _, _, button) StoryTellerButton.OnClick(nil, button) end
+	}
+end
+
+function StoryTellerButton.Refresh()
+	-- Create/show or hide minimap button
+	if StoryTeller_CharacterSettings.minimap.hide then
+		icon:Hide("StoryTeller")
+	else
+		icon:Show("StoryTeller")
+	end
+
+	-- Get button frame
+	local buttonFrame = icon:GetMinimapButton("StoryTeller")
+
 	-- Add background texture to fill the gap of the thinner WoW 10.0 minimap button border
-	if LE_EXPANSION_LEVEL_CURRENT >= 9 then
-		local buttonFrame = icon:GetMinimapButton("StoryTeller")
+	if buttonFrame and not buttonFrame.backdrop and LE_EXPANSION_LEVEL_CURRENT >= 9 then
 		local backdropMask = buttonFrame:CreateMaskTexture(nil, "BACKGROUND", nil, -7)
 		backdropMask:SetTexture(130925)
 		backdropMask:SetPoint("BOTTOMRIGHT", -1, 2)
@@ -29,17 +51,22 @@ function StoryTellerButton.Init()
 		backdrop:AddMaskTexture(backdropMask)
 		backdrop:SetAllPoints(backdropMask)
 		backdrop:SetColorTexture(0, 0, 0, 1)
+		buttonFrame.backdrop = backdrop
 	end
 
-	-- Register add-on on the minimap
+	-- Update add-on minimap menu
 	if AddonCompartmentFrame then
-		AddonCompartmentFrame:RegisterAddon({
-			notCheckable = true,
-			text = BUTTON_TEXT,
-			icon = BUTTON_ICON,
-			registerForRightClick = true,
-			func = function(self, _, _, _, button) StoryTellerButton.OnClick(nil, button) end
-		})
+		local registeredAddons = AddonCompartmentFrame.registeredAddons
+		local pos = tIndexOf(registeredAddons, addOnMenuInfo)
+		local addMenu = not StoryTeller_CharacterSettings.addOnMenu.hide
+		if addMenu and pos == nil then
+			tinsert(registeredAddons, addOnMenuInfo.pos or (#registeredAddons + 1), addOnMenuInfo)
+			AddonCompartmentFrame:UpdateDisplay()
+		elseif not addMenu and pos ~= nil then
+			addOnMenuInfo.pos = pos
+			tremove(registeredAddons, pos)
+			AddonCompartmentFrame:UpdateDisplay()
+		end
 	end
 end
 

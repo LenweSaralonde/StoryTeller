@@ -28,8 +28,13 @@ function StoryTeller.Init()
 				137, -- Retail
 			hide = false
 		},
+		addOnMenu = {
+			hide = true,
+		},
 	}
 	StoryTeller_CharacterSettings = Mixin(defaultCharacterSettings, StoryTeller_CharacterSettings or {})
+
+	StoryTeller.Options.Init()
 
 	-- /storyteller command
 	SlashCmdList["STORYTELLER"] = function(cmd)

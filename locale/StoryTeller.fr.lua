@@ -23,3 +23,9 @@ msg.TOOLTIP_ACTION_SHOW_MAIN_WINDOW = "Ouvrir la fenêtre principale"
 msg.TOOLTIP_ACTION_HIDE_MAIN_WINDOW = "Fermer la fenêtre principale"
 msg.TOOLTIP_ACTION_SHOW_EDIT_WINDOW = "Ouvrir l'éditeur"
 msg.TOOLTIP_ACTION_HIDE_EDIT_WINDOW = "Fermer l'éditeur"
+
+--- Add-on options
+msg.OPTIONS_TITLE = "StoryTeller"
+msg.OPTIONS_CATEGORY_SHORTCUTS = "Raccourcis"
+msg.OPTIONS_SHORTCUT_MINIMAP = "Bouton de la minicarte"
+msg.OPTIONS_SHORTCUT_ADDON_MENU = "Menu de la minicarte"
