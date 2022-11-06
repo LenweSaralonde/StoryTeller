@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.6.1
+--------
+* Fixed minimap button background.
+
 v1.1.6.0
 --------
 * Added options to disable the minimap button and menu.
