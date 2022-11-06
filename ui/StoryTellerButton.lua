@@ -28,6 +28,9 @@ function StoryTellerButton.Init()
 		registerForRightClick = true,
 		func = function(self, _, _, _, button) StoryTellerButton.OnClick(nil, button) end
 	}
+
+	-- Refresh button
+	StoryTellerButton.Refresh()
 end
 
 function StoryTellerButton.Refresh()
