@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.1.6.2
+--------
+* Fixed minimap button style.
+* TOC bump for WoW patch 10.0.2.
+
 v1.1.6.1
 --------
 * Fixed minimap button background.
