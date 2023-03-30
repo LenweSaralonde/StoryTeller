@@ -100,6 +100,11 @@ stds.wow = {
 				"UpdateDisplay"
 			}
 		},
+		C_AddOns = {
+			fields = {
+				"GetAddOnMetadata",
+			}
+		},
 
 		"ChatFrame1EditBox",
 

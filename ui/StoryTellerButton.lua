@@ -1,5 +1,7 @@
 StoryTellerButton = LibStub("AceAddon-3.0"):NewAddon("StoryTellerButton")
 
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+
 local icon = LibStub("LibDBIcon-1.0")
 
 local BUTTON_ICON = "Interface\\Icons\\Inv_misc_book_08"
