@@ -28,7 +28,9 @@ function StoryTellerButton.Init()
 		text = BUTTON_TEXT,
 		icon = BUTTON_ICON,
 		registerForRightClick = true,
-		func = function(self, _, _, _, button) StoryTellerButton.OnClick(nil, button) end
+		func = function(self, _, _, _, button) StoryTellerButton.OnClick(nil, button) end,
+		funcOnEnter = StoryTellerButton.ShowTooltip,
+		funcOnLeave = StoryTellerButton.HideTooltip
 	}
 
 	-- Refresh button
@@ -47,7 +49,7 @@ function StoryTellerButton.Refresh()
 	if AddonCompartmentFrame then
 		local registeredAddons = AddonCompartmentFrame.registeredAddons
 		local pos = tIndexOf(registeredAddons, addOnMenuInfo)
-		local addMenu = not StoryTeller_CharacterSettings.addOnMenu.hide
+		local addMenu = not StoryTeller_CharacterSettings.addonCompartment.hide
 		if addMenu and pos == nil then
 			tinsert(registeredAddons, addOnMenuInfo.pos or (#registeredAddons + 1), addOnMenuInfo)
 			AddonCompartmentFrame:UpdateDisplay()

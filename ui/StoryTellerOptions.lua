@@ -31,7 +31,7 @@ function StoryTeller.Options.Init()
 		StoryTellerButton.Refresh()
 	end)
 	StoryTellerOptionsPanelShortcutMenu:HookScript("OnClick", function(self)
-		StoryTeller_CharacterSettings.addOnMenu.hide = not self:GetChecked()
+		StoryTeller_CharacterSettings.addonCompartment.hide = not self:GetChecked()
 		StoryTellerButton.Refresh()
 	end)
 	-- Hide add-on menu option if the component is not available on the current WoW version
@@ -90,20 +90,20 @@ end
 
 function StoryTeller.Options.Refresh()
 	StoryTellerOptionsPanelShortcutMinimap:SetChecked(not StoryTeller_CharacterSettings.minimap.hide)
-	StoryTellerOptionsPanelShortcutMenu:SetChecked(not StoryTeller_CharacterSettings.addOnMenu.hide)
+	StoryTellerOptionsPanelShortcutMenu:SetChecked(not StoryTeller_CharacterSettings.addonCompartment.hide)
 	currentShortcutMinimapHide = StoryTeller_CharacterSettings.minimap.hide
-	currentShortcutMenuHide = StoryTeller_CharacterSettings.addOnMenu.hide
+	currentShortcutMenuHide = StoryTeller_CharacterSettings.addonCompartment.hide
 end
 
 function StoryTeller.Options.Defaults()
 	StoryTeller_CharacterSettings.minimap.hide = false
-	StoryTeller_CharacterSettings.addOnMenu.hide = true
+	StoryTeller_CharacterSettings.addonCompartment.hide = true
 	StoryTellerButton.Refresh()
 end
 
 function StoryTeller.Options.Cancel()
 	StoryTeller_CharacterSettings.minimap.hide = currentShortcutMinimapHide
-	StoryTeller_CharacterSettings.addOnMenu.hide = currentShortcutMenuHide
+	StoryTeller_CharacterSettings.addonCompartment.hide = currentShortcutMenuHide
 	StoryTellerButton.Refresh()
 end
 

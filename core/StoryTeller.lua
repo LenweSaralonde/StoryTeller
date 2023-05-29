@@ -29,11 +29,14 @@ function StoryTeller.Init()
 				137, -- Retail
 			hide = false
 		},
-		addOnMenu = {
-			hide = true,
+		addonCompartment = {
+			hide = false,
 		},
 	}
 	StoryTeller_CharacterSettings = Mixin(defaultCharacterSettings, StoryTeller_CharacterSettings or {})
+
+	-- Remove obsolete character settings
+	StoryTeller_Settings.addOnMenu = nil
 
 	StoryTeller.Options.Init()
 
