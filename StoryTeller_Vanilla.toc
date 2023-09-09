@@ -1,7 +1,7 @@
 ## Interface: 11404
 ## Title: StoryTeller
 ## Author: LenweSaralonde
-## Version: 1.1.6.5
+## Version: 1.1.6.6
 ## Notes: Tell long stories with your character
 ## SavedVariables: StoryTeller_Settings
 ## SavedVariablesPerCharacter: StoryTeller_CharacterSettings
