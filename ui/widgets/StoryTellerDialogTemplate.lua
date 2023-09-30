@@ -29,9 +29,11 @@ end
 --
 function StoryTellerDialogTemplate_OnKeyDown(self, key)
 	if self:IsShown() and key == "ESCAPE" and not self.noEscape then
-		self:SetPropagateKeyboardInput(false)
+		if not InCombatLockdown() then
+			self:SetPropagateKeyboardInput(false)
+		end
 		self:Hide()
-	else
+	elseif not InCombatLockdown() then
 		self:SetPropagateKeyboardInput(true)
 	end
 end

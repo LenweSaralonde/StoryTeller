@@ -72,6 +72,7 @@ stds.wow = {
 		"InterfaceOptions_AddCategory",
 		"InterfaceOptionsFrame_Show",
 		"InterfaceOptionsFrame_OpenToCategory",
+		"InCombatLockdown",
 
 		-- Global Mixins and UI Objects
 		DEFAULT_CHAT_FRAME = {
