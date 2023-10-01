@@ -3,7 +3,7 @@ StoryTeller.Frame = {}
 --- Main frame init
 --
 function StoryTeller.Frame.Init()
-	StoryTellerFrame.noEscape = true
+	StoryTellerFrame:DisableEscape()
 
 	-- Main frame title
 	StoryTellerFrameTitle:SetText(StoryTeller.Msg.TELL_A_STORY)

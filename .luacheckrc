@@ -108,6 +108,7 @@ stds.wow = {
 		},
 
 		"ChatFrame1EditBox",
+		"UISpecialFrames",
 
 		-- Global Constants
 		"TOOLTIP_DEFAULT_COLOR",

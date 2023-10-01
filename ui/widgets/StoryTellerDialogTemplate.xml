@@ -3,7 +3,7 @@
 	xmlns="http://www.blizzard.com/wow/ui/">
 	<!-- Dialog Window -->
 	<Script file="StoryTellerDialogTemplate.lua" />
-	<Frame name="StoryTellerDialogTemplate" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true" clampedtoscreen="true" frameStrata="DIALOG" virtual="true">
+	<Frame name="StoryTellerDialogTemplate" parent="UIParent" toplevel="true" enableMouse="true" movable="true" hidden="true" clampedtoscreen="true" frameStrata="DIALOG" virtual="true" mixin="StoryTellerDialogTemplateMixin">
 		<Layers>
 			<Layer level="BACKGROUND">
 				<Texture parentKey="TopLeftCorner" atlas="UI-Frame-DiamondMetal-CornerTopLeft" useAtlasSize="true">
@@ -65,7 +65,6 @@
 			<OnLoad function="StoryTellerDialogTemplate_OnLoad" />
 			<OnDragStart function="StoryTellerDialogTemplate_OnDragStart" />
 			<OnDragStop function="StoryTellerDialogTemplate_OnDragStop" />
-			<OnKeyDown inherit="append" function="StoryTellerDialogTemplate_OnKeyDown" />
 			<OnShow function="StoryTellerDialogTemplate_OnShow" />
 			<OnHide function="StoryTellerDialogTemplate_OnHide" />
 		</Scripts>

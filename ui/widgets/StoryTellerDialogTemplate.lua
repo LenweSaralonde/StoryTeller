@@ -1,6 +1,19 @@
 --- Dialog window template
 -- @module StoryTellerDialogTemplate
 
+StoryTellerDialogTemplateMixin = {}
+
+--- Disable the Escape key for the frame
+--
+function StoryTellerDialogTemplateMixin:DisableEscape()
+	for index, frameName in pairs(UISpecialFrames) do
+		if frameName == self:GetName() then
+			table.remove(UISpecialFrames, index)
+			return
+		end
+	end
+end
+
 --- OnLoad
 --
 function StoryTellerDialogTemplate_OnLoad(self)
@@ -11,6 +24,9 @@ function StoryTellerDialogTemplate_OnLoad(self)
 		self.close:SetScale(.75)
 		self.close:SetPoint("CENTER", self, "TOPRIGHT", -10, -10)
 	end
+
+	-- Enable the Escape key to close the frame by default
+	table.insert(UISpecialFrames, self:GetName())
 end
 
 --- OnDragStart
@@ -23,19 +39,6 @@ end
 --
 function StoryTellerDialogTemplate_OnDragStop(self)
 	self:StopMovingOrSizing()
-end
-
---- OnKeyDown
---
-function StoryTellerDialogTemplate_OnKeyDown(self, key)
-	if self:IsShown() and key == "ESCAPE" and not self.noEscape then
-		if not InCombatLockdown() then
-			self:SetPropagateKeyboardInput(false)
-		end
-		self:Hide()
-	elseif not InCombatLockdown() then
-		self:SetPropagateKeyboardInput(true)
-	end
 end
 
 --- OnShow
