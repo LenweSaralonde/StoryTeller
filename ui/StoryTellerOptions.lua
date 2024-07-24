@@ -12,12 +12,27 @@ function StoryTeller.Options.Init()
 	-- Register panel
 	local panel = StoryTellerOptionsPanelContainer
 	panel.name = StoryTeller.Msg.OPTIONS_TITLE
-	panel.refresh = StoryTeller.Options.Refresh
-	panel.okay = StoryTeller.Options.Save
-	panel.cancel = StoryTeller.Options.Cancel
-	panel.default = StoryTeller.Options.Defaults
+
+	if InterfaceOptions_AddCategory then
+		-- Old school way
+		panel.refresh = StoryTeller.Options.Refresh
+		panel.okay = StoryTeller.Options.Save
+		panel.cancel = StoryTeller.Options.Cancel
+		panel.default = StoryTeller.Options.Defaults
+
+		InterfaceOptions_AddCategory(StoryTellerOptionsPanelContainer)
+	else
+		panel.OnRefresh = StoryTeller.Options.Refresh
+		panel.OnCommit = StoryTeller.Options.Save
+		panel.OnCancel = StoryTeller.Options.Cancel
+		panel.OnDefault = StoryTeller.Options.Defaults
+
+		local category = Settings.RegisterCanvasLayoutCategory(panel, panel.name)
+		Settings.RegisterAddOnCategory(category)
+		StoryTeller.Options.category = category
+	end
+
 	StoryTellerOptionsPanelContainer:SetScript("OnShow", StoryTeller.Options.UpdateSize)
-	InterfaceOptions_AddCategory(StoryTellerOptionsPanelContainer)
 
 	-- Set title
 	StoryTellerOptionsPanelTitle:SetText(StoryTeller.Msg.OPTIONS_TITLE)
@@ -85,7 +100,12 @@ function StoryTeller.Options.Show()
 	if InterfaceOptionsFrame_Show then
 		InterfaceOptionsFrame_Show() -- This one has to be opened first
 	end
-	InterfaceOptionsFrame_OpenToCategory("StoryTeller")
+	if InterfaceOptionsFrame_OpenToCategory then
+		-- Old school way
+		InterfaceOptionsFrame_OpenToCategory(StoryTeller.Msg.OPTIONS_TITLE)
+	else
+		Settings.OpenToCategory(StoryTeller.Options.category.ID)
+	end
 end
 
 function StoryTeller.Options.Refresh()

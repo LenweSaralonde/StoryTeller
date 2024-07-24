@@ -101,6 +101,13 @@ stds.wow = {
 				"UpdateDisplay"
 			}
 		},
+		Settings = {
+			fields = {
+				"RegisterCanvasLayoutCategory",
+				"RegisterAddOnCategory",
+				"OpenToCategory"
+			}
+		},
 		C_AddOns = {
 			fields = {
 				"GetAddOnMetadata",
