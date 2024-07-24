@@ -28,7 +28,14 @@ function StoryTellerButton.Init()
 		text = BUTTON_TEXT,
 		icon = BUTTON_ICON,
 		registerForRightClick = true,
-		func = function(self, _, _, _, button) StoryTellerButton.OnClick(nil, button) end,
+		func = function(self, event, _, _, button)
+			if event and event.buttonName then
+				StoryTellerButton.OnClick(nil, event.buttonName)
+			else
+				-- Old school way
+				StoryTellerButton.OnClick(nil, button)
+			end
+		end,
 		funcOnEnter = StoryTellerButton.ShowTooltip,
 		funcOnLeave = StoryTellerButton.HideTooltip
 	}
@@ -82,6 +89,7 @@ function StoryTellerButton.ShowTooltip(self)
 	if self then
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
 	end
+	local isTooltipFromMinimapButton = self:GetName() ~= nil
 
 	local mainLine = string.gsub(StoryTeller.Msg.PLAYER_TOOLTIP_VERSION, "{version}",
 		GetAddOnMetadata("StoryTeller", "Version"))
@@ -105,11 +113,14 @@ function StoryTellerButton.ShowTooltip(self)
 	rightClickLine = string.gsub(rightClickLine, "{action}", rightAction)
 
 	GameTooltip:AddLine(mainLine, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	GameTooltip:AddLine(StoryTeller.FormatText(leftClickLine), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	GameTooltip:AddLine(StoryTeller.FormatText(leftClickLine), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g,
+		NORMAL_FONT_COLOR.b)
 	GameTooltip:AddLine(StoryTeller.FormatText(rightClickLine),
 		NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	GameTooltip:AddLine(StoryTeller.FormatText(StoryTeller.Msg.TOOLTIP_DRAG_AND_DROP),
-		NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	if isTooltipFromMinimapButton then
+		GameTooltip:AddLine(StoryTeller.FormatText(StoryTeller.Msg.TOOLTIP_DRAG_AND_DROP),
+			NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+	end
 
 	GameTooltip:Show()
 end
