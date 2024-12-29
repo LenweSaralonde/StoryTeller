@@ -18,7 +18,7 @@ Click **Edit** to modify the current text using the in-game editor.
 
 Tips and tricks
 ----------------
-* Lines longer than 256 characters are automatically spliltted into multiple lines.
+* Lines longer than 256 characters are automatically split into multiple lines.
 * The text can contain emotes and macros as long as you don't use secure functions. In this case, secure function calls will be automatically commented out and ignored.
 * Click **Edit** to modify the text directly in game.
 * Blank lines and lines that starts with a comment code `--`, `//` or `#` are ignored.
