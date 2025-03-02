@@ -1,7 +1,7 @@
 ## Interface: 110100
 ## Title: StoryTeller
 ## Author: LenweSaralonde
-## Version: 1.1.7.3
+## Version: 1.1.7.4
 ## IconTexture: Interface\Icons\Inv_misc_book_08.blp
 ## Notes: Tell long stories with your character
 ## SavedVariables: StoryTeller_Settings
