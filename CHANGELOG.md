@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.8.0
+--------
+* Updated for WoW Mists of Pandaria Classic prepatch.
+
 v1.1.7.5
 --------
 * TOC bump for WoW retail 11.1.5 and WoW Classic Era 1.15.7.
