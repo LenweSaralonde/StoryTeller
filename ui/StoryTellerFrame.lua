@@ -1,5 +1,8 @@
 StoryTeller.Frame = {}
 
+local ChatEdit_ParseText = ChatFrameEditBoxMixin and ChatFrameEditBoxMixin.ParseText or ChatEdit_ParseText
+local ChatEdit_OnEnterPressed = ChatFrameEditBoxMixin and ChatFrameEditBoxMixin.OnEnterPressed or ChatEdit_OnEnterPressed
+
 --- Main frame init
 --
 function StoryTeller.Frame.Init()

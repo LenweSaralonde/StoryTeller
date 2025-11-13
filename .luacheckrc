@@ -113,6 +113,12 @@ stds.wow = {
 				"GetAddOnMetadata",
 			}
 		},
+		ChatFrameEditBoxMixin = {
+			fields = {
+				"ParseText",
+				"OnEnterPressed",
+			}
+		},
 
 		"ChatFrame1EditBox",
 		"UISpecialFrames",
