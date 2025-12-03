@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.1.8.2
+--------
+* Updated for WoW Retail 11.2.7, MoP Classic 5.5.2 and Classic Era 1.15.8.
+* Minor bugfixes and improvements.
+
 v1.1.8.1
 --------
 * Updated for WoW retail patch 11.2.
