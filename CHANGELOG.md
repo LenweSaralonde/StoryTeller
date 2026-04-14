@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.10.0
+---------
+* Updated for Wow Retail 12.0.5.
+
 v1.1.9.1
 --------
 * TOC bump for Wow Retail 12.0.1.
