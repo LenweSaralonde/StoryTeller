@@ -77,6 +77,16 @@ function StoryTeller.Frame.Init()
 		end
 	end)
 	StoryTeller.Frame.StopAnimation()
+
+	-- Monitor chat messaging lockdown state changes
+	local inLockdown = StoryTeller.InChatMessagingLockdown()
+	C_Timer.NewTicker(0, function()
+		local newInLockdown = StoryTeller.InChatMessagingLockdown()
+		if newInLockdown ~= inLockdown then
+			inLockdown = newInLockdown
+			StoryTellerFrameReadButton:SetEnabled(not inLockdown)
+		end
+	end)
 end
 
 --- Highlight the current line in the edit box
@@ -332,6 +342,8 @@ end
 --- Read the current line
 --
 function StoryTeller.Frame.Read()
+	if StoryTeller.InChatMessagingLockdown() then return end
+
 	local lineCount = #StoryTeller.text
 	if lineCount and StoryTeller.textCursor <= lineCount then
 		StoryTeller.Frame.ReadLine(StoryTeller.text[StoryTeller.textCursor][1])
@@ -413,6 +425,8 @@ end
 --- Read text line or macro
 --
 function StoryTeller.Frame.ReadLine(text)
+	if StoryTeller.InChatMessagingLockdown() then return end
+
 	text = strtrim(text)
 	local editBox = ChatFrame1EditBox
 	editBox:SetText(text)

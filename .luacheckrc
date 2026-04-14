@@ -119,6 +119,16 @@ stds.wow = {
 				"OnEnterPressed",
 			}
 		},
+		C_Timer = {
+			fields = {
+				"NewTicker",
+			}
+		},
+		C_ChatInfo = {
+			fields = {
+				"InChatMessagingLockdown",
+			}
+		},
 
 		"ChatFrame1EditBox",
 		"UISpecialFrames",

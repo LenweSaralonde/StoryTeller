@@ -93,6 +93,12 @@ function StoryTeller.InitLocale(languageCode, languageName, localeCode, ...)
 	return msg
 end
 
+--- Return true if the game is in messaging lockdown (ie during a boss fight in a dungeon)
+-- @return inLockdown (boolean)
+function StoryTeller.InChatMessagingLockdown()
+	return C_ChatInfo and C_ChatInfo.InChatMessagingLockdown and C_ChatInfo.InChatMessagingLockdown()
+end
+
 --- Display a message in the console
 -- @param msg (string)
 function StoryTeller.Print(msg)
