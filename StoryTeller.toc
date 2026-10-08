@@ -1,4 +1,4 @@
-## Interface: 120100
+## Interface: 120100, 50504, 20506, 11509
 ## Title: StoryTeller
 ## Author: LenweSaralonde
 ## Version: 1.1.11.0
