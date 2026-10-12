@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.12.0
+---------
+* Updated for WoW Midnight 12.1.5.
+
 v1.1.11.0
 ---------
 * Updated for WoW Retail 12.1.0.
