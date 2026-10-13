@@ -37,9 +37,3 @@ function StoryTellerCheckButtonTemplate_OnLeave(self)
 		GameTooltip:Hide()
 	end
 end
-
--- Hack to set an alias for addon backward compatibility.
-function StoryTellerCheckButtonTemplate_SetParentKeyAlias(fontString)
-	local parent = fontString:GetParent()
-	parent.text = fontString
-end

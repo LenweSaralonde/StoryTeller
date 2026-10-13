@@ -2,10 +2,9 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns="http://www.blizzard.com/wow/ui/">
 	<!-- EditBox backdrop -->
-	<Script file="StoryTellerEditBoxBackdropTemplate.lua" />
-	<Frame name="StoryTellerEditBoxBackdropTemplate" inherits="BackdropTemplate" virtual="true">
-		<Scripts>
-			<OnLoad function="StoryTellerEditBoxBackdropTemplate_OnLoad" />
-		</Scripts>
+	<Frame name="StoryTellerEditBoxBackdropTemplate" inherits="TooltipBackdropTemplate" virtual="true">
+		<KeyValues>
+			<KeyValue key="backdropBorderColor" value="TOOLTIP_DEFAULT_COLOR" type="global" />
+		</KeyValues>
 	</Frame>
 </Ui>
