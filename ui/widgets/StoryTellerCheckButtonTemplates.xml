@@ -6,11 +6,14 @@
 
 	<!-- Common check button template -->
 
-	<CheckButton name="StoryTellerCheckButtonArtTemplate" inherits="UICheckButtonArtTemplate" virtual="true">
+	<CheckButton name="StoryTellerCheckButtonArtTemplate" inherits="SettingsCheckboxTemplate" virtual="true">
+		<HighlightTexture atlas="checkbox-minimal" useAtlasSize="true" alphaMode="ADD" />
 		<HitRectInsets>
 			<AbsInset left="0" right="0" top="0" bottom="0" />
 		</HitRectInsets>
 		<Scripts>
+			<!-- Prevent SettingsCheckboxMixin from overriding the OnEnter and OnLeave scripts -->
+			<OnLoad function="nop" />
 			<OnClick function="StoryTellerCheckButtonTemplate_OnClick" />
 			<OnEnable function="StoryTellerCheckButtonTemplate_OnEnable" />
 			<OnDisable function="StoryTellerCheckButtonTemplate_OnDisable" />
@@ -23,13 +26,13 @@
 
 	<CheckButton name="StoryTellerOptionCheckButtonTemplate" virtual="true" inherits="StoryTellerCheckButtonArtTemplate">
 		<Size>
-			<AbsDimension x="26" y="26" />
+			<AbsDimension x="20" y="20" />
 		</Size>
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString name="$parentText" inherits="GameFontHighlightLeft" parentKey="Text">
 					<Anchors>
-						<Anchor point="LEFT" relativePoint="RIGHT" x="-2" y="0" />
+						<Anchor point="LEFT" relativePoint="RIGHT" x="1" y="0" />
 					</Anchors>
 					<Scripts>
 						<OnLoad function="UICheckButtonFontString_SetParentKeyAlias" />
