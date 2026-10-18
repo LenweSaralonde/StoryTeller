@@ -1,6 +1,12 @@
 Changelog
 =========
 
+v1.1.13.0
+---------
+* Reworked widgets using standard components.
+* Reworked checkboxes to use the modern style.
+* WoW Forever compatibility.
+
 v1.1.12.0
 ---------
 * Updated for WoW Midnight 12.1.5.
