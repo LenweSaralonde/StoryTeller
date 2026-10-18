@@ -17,6 +17,8 @@
 ## Category-ruRU: Ролевая игра
 ## Category-zhCN: 角色扮演
 ## Category-zhTW: 角色扮演
+## X-Curse-Project-ID: 291838
+## X-Wago-ID: 5bGozoK0
 
 embeds.xml
 
